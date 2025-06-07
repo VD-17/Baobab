@@ -4,7 +4,6 @@
 
     if (!isset($_SESSION['userId'])) {
         $_SESSION['errors'] = ['You must be logged in to list a product.'];
-        // header("Location: ../pages/login.php?redirect=listing.php");
         exit();
     }
 
@@ -114,12 +113,30 @@
 
         echo "<script type='text/javascript'>alert('Successfully inserted the products');</script>";
 
-        // Clear session data
-        session_unset();
-        session_destroy();
+        unset($_SESSION['id']);
+        unset($_SESSION['productName']);
+        unset($_SESSION['description']);
+        unset($_SESSION['productCategory']);
+        unset($_SESSION['subCategory']);
+        unset($_SESSION['quality']);
+        unset($_SESSION['price']);
+        unset($_SESSION['delivery']);
+        unset($_SESSION['productPicturePath']);
+        unset($_SESSION['productVideoPath']);
+        unset($_SESSION['upload_error']);
+        unset($_SESSION['errors']);
+        unset($_SESSION['form_data']);
 
-        header("Location: ../../pages/user_bank_details.php?userId=" . $_SESSION['userId']);
-        // header("Location: ../../pages/myListing.php"); 
+        $bank_check_stmt = $conn->prepare("SELECT id FROM seller_bank_details WHERE userId = ?");
+        $bank_check_stmt->execute([$userId]);
+
+        if ($bank_check_stmt->rowCount() > 0) {
+            // User has bank details, redirect to myListings
+            header("Location: ../../pages/myListing.php");
+        } else {
+            // User doesn't have bank details, redirect to bank details page
+            header("Location: ../../pages/user_bank_details.php");
+        }
         exit();
     } catch (PDOException $e) {
         $conn->rollback();

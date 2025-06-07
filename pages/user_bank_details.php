@@ -6,7 +6,7 @@ require_once '../includes/db_connection.php';
 if (!isset($_SESSION['userId'])) {
     header('Location: ../pages/signIn.php');
     exit();
-}
+} 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['userId'];
