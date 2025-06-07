@@ -1,0 +1,379 @@
+#page-header {
+    background-image: url("../images/Headers/about.jpg");
+    width: 100%;
+    height: 85vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 14px;
+    position: relative; 
+}
+
+#page-header h2,
+#page-header p {
+    color: #080357;
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 10px 0;
+    max-width: 90%;
+}
+
+#page-header h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#page-header p {
+    font-size: 1.1rem;
+}
+
+/* Main Steps Section */
+#main {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+#main > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+    padding: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#main > div:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+#main > div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 300% 100%;
+    animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Alternate layout for even steps */
+#main > div:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+#main > div:nth-child(even)::before {
+    background: linear-gradient(90deg, #4ecdc4, #45b7d1, #96ceb4, #ff6b6b, #ff8e53);
+}
+
+/* Step number styling */
+#main > div > div:first-child {
+    min-width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+#main > div:nth-child(even) > div:first-child {
+    margin-right: 0;
+    margin-left: 30px;
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+}
+
+/* Content area */
+#main > div > div:last-child {
+    flex: 1;
+}
+
+#main h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
+}
+
+#main h3 i {
+    margin-right: 15px;
+    color: #ff6b6b;
+    font-size: 1.5rem;
+}
+
+#main > div:nth-child(even) h3 i {
+    color: #4ecdc4;
+}
+
+#main p {
+    margin: 0 0 25px 0;
+    color: #666;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Button styling */
+#main button {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    border: none;
+    padding: 0;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#main > div:nth-child(even) button {
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+}
+
+#main button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+#main > div:nth-child(even) button:hover {
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+#main button a {
+    display: block;
+    padding: 15px 30px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+#main button a i {
+    margin-left: 10px;
+    transition: transform 0.2s ease;
+}
+
+#main button:hover a i {
+    transform: rotate(45deg);
+}
+
+/* More Section */
+#more {
+    background: #3C426F;
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#more::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#info {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+#info h3 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+#info h3 span {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+}
+
+#info h5 {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 40px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+#btn {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#btn button {
+    padding: 18px 35px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#btn button.normal {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+}
+
+#btn button.normal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6);
+}
+
+#btn button.white {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 5px 20px rgba(255,255,255, 0.3);
+}
+
+#btn button.white:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255,255,255, 0.5);
+    background: #f8f9fa;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #page-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    #main {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+    
+    #main > div {
+        flex-direction: column !important;
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 40px;
+    }
+    
+    #main > div > div:first-child {
+        margin: 0 0 25px 0 !important;
+    }
+    
+    #main h3 {
+        font-size: 1.5rem;
+    }
+    
+    #info h3 {
+        font-size: 2rem;
+    }
+    
+    #btn {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #btn button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #page-header {
+        padding: 40px 15px;
+    }
+    
+    #page-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    #main > div {
+        padding: 25px 15px;
+    }
+    
+    #main > div > div:first-child {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+    
+    #main h3 {
+        font-size: 1.3rem;
+    }
+    
+    #main h3 i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+    
+    #info h3 {
+        font-size: 1.7rem;
+    }
+    
+    #info h5 {
+        font-size: 1rem;
+    }
+    
+    #more {
+        padding: 60px 15px;
+    }
+}
+
+/* Header and footer stay full width */
+header, footer {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+}

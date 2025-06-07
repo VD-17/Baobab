@@ -1,0 +1,323 @@
+/* ===========================
+   ESCROW TRANSACTION PAGE CSS - FIXED
+   =========================== */
+
+/* General body styling for user-escrow page */
+#user-escrow {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "sidebar top-section"
+        "sidebar bottom";
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   TOP SECTION - QUICK ACCESS
+   =========================== */
+
+#top-section {
+    grid-area: top-section;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+}
+
+#quickAccess {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+#quickAccess .box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    min-width: 200px;
+    flex: 1;
+    max-width: 250px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+#quickAccess .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+#quickAccess .box h6 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+#quickAccess .box h5 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* ===========================
+   BOTTOM SECTION - TABLE
+   =========================== */
+
+#bottom {
+    grid-area: bottom;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#myListing {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   HEADING SECTION
+   =========================== */
+
+#heading {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 20px;
+}
+
+#heading h1 {
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+#heading p {
+    color: #6c757d;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* ===========================
+   TABLE STYLING
+   =========================== */
+
+#listingTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+}
+
+#tableHeading {
+    background-color: #f8f9fa;
+}
+
+#tableHeading th {
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Column widths */
+#tableHeading th:nth-child(1) { width: 25%; } /* Product */
+#tableHeading th:nth-child(2) { width: 12%; } /* Role */
+#tableHeading th:nth-child(3) { width: 20%; } /* Other Party */
+#tableHeading th:nth-child(4) { width: 15%; } /* Amount */
+#tableHeading th:nth-child(5) { width: 13%; } /* Status */
+#tableHeading th:nth-child(6) { width: 15%; } /* Actions */
+
+#tabledata tr {
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s ease;
+}
+
+#tabledata tr:hover {
+    background-color: #f8f9fa;
+}
+
+#tabledata td {
+    padding: 15px 12px;
+    color: #495057;
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
+/* ===========================
+   ACTION BUTTONS
+   =========================== */
+
+#tabledata button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+#confirm-receipt {
+    background-color: #28a745;
+    color: white;
+}
+
+#confirm-receipt:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+#confirm-shipment {
+    background-color: #007bff;
+    color: white;
+}
+
+#confirm-shipment.white {
+    background-color: white;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+#confirm-shipment:hover {
+    background-color: #0056b3;
+    color: white;
+    transform: translateY(-2px);
+}
+
+#confirm-shipment.white:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* ===========================
+   EMPTY STATE
+   =========================== */
+
+#tabledata tr td[colspan="6"] {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 16px;
+}
+
+/* ===========================
+   STATUS INDICATORS
+   =========================== */
+
+.status-pending {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.status-completed {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.status-cancelled {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.status-in-progress {
+    color: #17a2b8;
+    font-weight: 600;
+}
+
+/* ===========================
+   ROLE INDICATORS
+   =========================== */
+
+.role-buyer {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.role-seller {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 1200px) {
+    #top-section,
+    #bottom {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+}
+
+@media (max-width: 768px) {
+    #top-section,
+    #bottom {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+    
+    #quickAccess {
+        flex-direction: column;
+    }
+    
+    #quickAccess .box {
+        min-width: auto;
+        max-width: none;
+    }
+    
+    #myListing {
+        padding: 20px;
+        overflow-x: auto;
+    }
+    
+    #listingTable {
+        min-width: 600px;
+    }
+    
+    #tableHeading th,
+    #tabledata td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+    
+    #tabledata button {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+}

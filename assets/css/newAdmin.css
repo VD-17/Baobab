@@ -1,0 +1,225 @@
+#add {
+    background: linear-gradient(135deg, #080357 0%, #3C426F 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #080357;
+}
+
+h2 {
+    text-align: center;
+    color: #D6FFB7;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formInput {
+    background: rgba(214, 255, 183, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    backdrop-filter: blur(10px);
+}
+
+#userForm {
+    display: grid;
+    gap: 25px;
+}
+
+.profile {
+    position: relative;
+}
+
+.profile label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #080357;
+    font-size: 1.1rem;
+}
+
+.profile input[type="text"],
+.profile input[type="email"],
+.profile input[type="file"],
+.password input[type="password"] {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 2px solid #3C426F;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.profile input[type="file"] {
+    padding: 15px;
+    cursor: pointer;
+}
+
+.profile input:focus,
+.password input:focus {
+    outline: none;
+    border-color: #FF9F1C;
+    box-shadow: 0 0 10px rgba(255, 159, 28, 0.3);
+    transform: translateY(-2px);
+}
+
+.profile i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #3C426F;
+    font-size: 1.2rem;
+    z-index: 1;
+    margin-top: 12px;
+}
+
+/* Address section styling */
+#address {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+#street {
+    grid-column: 1 / -1;
+    position: relative;
+}
+
+#suburb,
+#code,
+#city,
+#province {
+    position: relative;
+}
+
+#address label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #080357;
+    font-size: 1rem;
+}
+
+#address input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 2px solid #3C426F;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+#address i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #3C426F;
+    font-size: 1rem;
+    z-index: 1;
+    margin-top: 12px;
+}
+
+/* Password section */
+.password {
+    position: relative;
+}
+
+.password label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #080357;
+    font-size: 1.1rem;
+}
+
+.password input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #3C426F;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+/* Submit button */
+button.normal {
+    background: linear-gradient(45deg, #FF9F1C, #ffb347);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(255, 159, 28, 0.3);
+}
+
+button.normal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 159, 28, 0.4);
+    background: linear-gradient(45deg, #ffb347, #FF9F1C);
+}
+
+button.normal:active {
+    transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #formInput {
+        padding: 25px;
+        margin: 10px;
+    }
+    
+    #address {
+        grid-template-columns: 1fr;
+    }
+    
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body#add {
+        padding: 10px;
+    }
+    
+    #formInput {
+        padding: 20px;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .profile input,
+    .password input,
+    #address input {
+        padding: 12px 12px 12px 35px;
+        font-size: 0.9rem;
+    }
+    
+    button.normal {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}

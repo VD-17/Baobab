@@ -1,0 +1,52 @@
+/* Sidenav Styling */
+.sidenav {
+    width: 200px; /* Smaller width for compact look */
+    position: fixed;
+    top: 60px; /* Adjust based on header height */
+    bottom: 0; /* Extend to bottom of viewport */
+    background-color: #273043; /* Dark blue from footer */
+    padding: 15px 0;
+    overflow-y: auto;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow for floating effect */
+    border-radius: 0 8px 8px 0; /* Rounded right edges */
+    z-index: 1000;
+}
+
+.sidenav a {
+    display: block;
+    color: #D6FFB7; /* Light green */
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidenav a:hover,
+.sidenav a.active {
+    background-color: #FF9F1C; /* Orange */
+    color: #fff; /* White text */
+}
+
+.sidenav a.active {
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidenav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        padding: 10px 0;
+        box-shadow: none;
+        border-radius: 0;
+    }
+    .sidenav a {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        display: inline-block; /* Horizontal layout on mobile */
+        margin-right: 10px;
+    }
+}

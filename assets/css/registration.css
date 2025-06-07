@@ -1,0 +1,371 @@
+.sign {
+    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+}
+
+#signUp {
+    height: 85vh;
+    max-width: 70%;
+    background-color: #364156;
+    border-radius: 15px;
+    margin: 50px auto; 
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#image-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 48%;
+    height: 80vh;
+    background-color: #D9D9D9;
+    position: absolute;
+    left: 0px;
+    padding: 10px;
+    margin: 15px;
+    border: none;
+    border-radius: 15px;
+}
+
+#toBaobab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#toBaobab a {
+    color: #364156;
+    font-size: 10px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin: 7px;
+    cursor: pointer;
+}
+
+#toBaobab a:hover {
+    text-decoration: underline;
+}
+
+#toBaobab img {
+    width: 70px; 
+    height: 55px;
+}
+
+#admin a {
+    color: #364156;
+    font-size: 10px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin: 7px;
+    cursor: pointer;
+}
+
+#welcome {
+    text-align: center;
+}
+
+#welcome h1 {
+    margin-top: 5%; 
+    font-size: 48px;
+    line-height: 1;
+}
+
+#welcome span {
+    color: #FF9F1C;
+}
+
+#welcome p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#welcome-img {
+    display: flex;
+    justify-content: center;
+}
+
+#welcome-img img {
+    max-width: 80%;
+    height: auto;
+    max-height: 80%;
+}
+
+#signUp-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 50%; 
+    height: 85vh; 
+    padding: 50px; 
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 10px; 
+}
+
+#signUp-form h3 {
+    color: white;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+#account-heading {
+    margin-bottom: 10px;
+}
+
+#account-heading h1 {
+    font-size: 34px;
+    color: white;
+    margin-top: 10px;
+}
+
+#account-heading h6 {
+    font-size: 12px;
+    font-weight: normal;
+    color: #6F8187;
+}
+
+#account-heading a {
+    text-decoration: none;
+    color: #FFC15E;
+}
+
+#account-heading a:hover {
+    text-decoration: underline;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.form-row h6 {
+    color: white;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    gap: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+.form i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #CDCDCD;
+    z-index: 1;
+}
+
+.form input {
+    height: 100%;
+    width: 100%;
+    background: #626D81;
+    outline: none;
+    color: white;
+    padding: 10px 30px 10px 40px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.form input:focus {
+    outline: none;
+    background-color: #535c7a;
+}
+
+.form input::placeholder {
+    font-size: 14px;
+    color: #a0a7b8;
+}
+
+.check {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.check label {
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 3px;
+}
+
+.check span {
+    padding-right: 40px;
+}
+
+.check a {
+    color: #ff9a00;
+    text-decoration: none;
+}
+
+.check a:hover {
+    text-decoration: underline;
+}
+
+.check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+button.normal {
+    width: 95%;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 580;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+}
+
+button.normal:hover {
+    background-color: #e68f17;
+}
+
+select {
+    width: 100%;
+    padding: 10px 10px 10px 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #626D81;
+    background-color: #626D81;
+    color: #a0a7b8;
+}
+
+.output {
+    color: white;
+}
+
+.form-file-upload {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #626D81;
+    border: 2px dashed #CDCDCD;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.normal i {
+    padding-right: 5px;
+}
+
+.form-file-upload i {
+    font-size: 24px;
+    margin-right: 20px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.form-file-upload .file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #a0a7b8;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px 40px;
+}
+
+.form-file-upload .file-upload-label span {
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.form-file-upload input[type="file"] {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    padding: 10px 40px;
+    font-size: 16px;
+}
+
+.form-file-upload:hover {
+    background-color: #535c7a;
+}
+
+.form .white {
+    margin-bottom: 5px;
+}
+
+.form .white:hover {
+    color: #080357;
+    box-shadow: inset 0 -100px 0 0 #FFB03D;
+}
+
+.form .white:active {
+    transform: scale(0.9);
+}
+
+.form-phone-verify {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background-color: #626D81;
+    border-radius: 10px;
+    position: relative;
+}
+
+.form-phone-verify input {
+    width: 120%;
+    padding-right: 10px;
+}
+
+.form-phone-verify .normal {
+    margin-right: 10px;
+}
+
+
+.form-phone-verify .normal:hover {
+    background-color: #e68f17;
+}
+
+.error {
+    color: #ff0000;
+    font-size: 9px;
+    margin-top: 5px;
+    align-items: self-end;
+    display: none;
+}
+.error-border {
+    border: 2px solid #ff0000 !important;
+}
+
+.form-row a {
+    color: white;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.form-row a:hover {
+    text-decoration: underline;
+}
