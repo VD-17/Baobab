@@ -278,6 +278,8 @@ include('../includes/head.php');
         ?>
     </div>
 
+    <?php include('../includes/footer.php'); ?>
+
     <script>
         // Debug function to check session
         function getCurrentUserId() {

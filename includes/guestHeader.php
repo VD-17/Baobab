@@ -5,7 +5,7 @@
     <div id="searchbar">
         <i class="fa-solid fa-magnifying-glass" id="search"></i>
         <input class="search" type="search" placeholder="Search" autocomplete="off">
-        <a href=""><i class="fa-solid fa-sliders"></i></a>
+        <!-- <a href=""><i class="fa-solid fa-sliders"></i></a>  -->
     </div>
     <div id="navbar">
         <li><a class="signup" id="user" href="../pages/signUp.php"><span>Sign Up</span></a></li>

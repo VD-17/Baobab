@@ -135,6 +135,8 @@ include('../includes/head.php');
         </div>
     </section>
 
+    <?php include('../includes/footer.php'); ?>
+
     <script>
         function getCurrentUserId() {
             const userId = <?php 

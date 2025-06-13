@@ -45,6 +45,19 @@ include('../includes/head.php');
 <body>
     <?php include('../includes/header.php'); ?>
 
+    <?php if (isset($_SESSION['cart_success'])): ?>
+        <div id="cart-notification" class="notification success-notification show">
+            <div class="notification-content">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Product added to cart successfully!</span>
+            </div>
+            <button class="notification-close" onclick="closeNotification()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <?php unset($_SESSION['cart_success']); ?>
+    <?php endif; ?>
+
     <section id="page-header">
         <h2>#Shop</h2>
         <p>Shop Our Exclusive Products!</p>
@@ -59,7 +72,7 @@ include('../includes/head.php');
                 <?php unset($_SESSION['errors']); ?>
             </div>
         </section>
-    <?php endif; ?>
+    <?php endif; ?> 
 
     <?php include('../pages/product.php'); ?> 
 
@@ -71,6 +84,8 @@ include('../includes/head.php');
             <a href="?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-arrow-right"></i></a>
         <?php endif; ?>
     </section>
+
+    <?php include('../includes/footer.php'); ?>
 
     <script src="../assets/js/shop.js"></script>
 </body>

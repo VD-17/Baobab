@@ -102,6 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkProductPicture(input) {
         // If no files selected, skip validation (existing images will be kept)
+        if (!input || !input.files) {
+            return true;
+        }
+
         if (input.files.length === 0) {
             showSuccess(input);
             return true;
@@ -123,6 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkVideo(input) {
+        if (!input || !input.files) {
+            return true;
+        }
         // If no file selected, skip validation (existing video will be kept)
         if (input.files.length === 0) {
             showSuccess(input);
@@ -205,58 +212,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Video preview functionality
-    const videoPreview = document.getElementById('videoPreview');
-    if (productVideo && videoPreview) {
-        productVideo.addEventListener('change', () => {
-            videoPreview.innerHTML = '';
-            const file = productVideo.files[0];
-            if (file && file.type.startsWith('video/')) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const previewItem = document.createElement('div');
-                    previewItem.className = 'video-container';
-                    previewItem.style.position = 'relative';
-                    previewItem.style.display = 'inline-block';
-                    previewItem.style.margin = '5px';
+    // const videoPreview = document.getElementById('videoPreview');
+    // if (productVideo && videoPreview) {
+    //     productVideo.addEventListener('change', () => {
+    //         videoPreview.innerHTML = '';
+    //         const file = productVideo.files[0];
+    //         if (file && file.type.startsWith('video/')) {
+    //             const reader = new FileReader();
+    //             reader.onload = (e) => {
+    //                 const previewItem = document.createElement('div');
+    //                 previewItem.className = 'video-container';
+    //                 previewItem.style.position = 'relative';
+    //                 previewItem.style.display = 'inline-block';
+    //                 previewItem.style.margin = '5px';
 
-                    const video = document.createElement('video');
-                    video.src = e.target.result;
-                    video.controls = true;
-                    video.style.maxWidth = '200px';
-                    video.style.maxHeight = '200px';
-                    video.style.borderRadius = '5px';
+    //                 const video = document.createElement('video');
+    //                 video.src = e.target.result;
+    //                 video.controls = true;
+    //                 video.style.maxWidth = '200px';
+    //                 video.style.maxHeight = '200px';
+    //                 video.style.borderRadius = '5px';
 
-                    const removeButton = document.createElement('button');
-                    removeButton.type = 'button';
-                    removeButton.textContent = '✖';
-                    removeButton.style.position = 'absolute';
-                    removeButton.style.top = '2px';
-                    removeButton.style.right = '2px';
-                    removeButton.style.background = 'rgba(255, 0, 0, 0.7)';
-                    removeButton.style.color = 'white';
-                    removeButton.style.border = 'none';
-                    removeButton.style.borderRadius = '50%';
-                    removeButton.style.width = '20px';
-                    removeButton.style.height = '20px';
-                    removeButton.style.cursor = 'pointer';
-                    removeButton.style.display = 'flex';
-                    removeButton.style.alignItems = 'center';
-                    removeButton.style.justifyContent = 'center';
-                    removeButton.style.fontSize = '12px';
+    //                 const removeButton = document.createElement('button');
+    //                 removeButton.type = 'button';
+    //                 removeButton.textContent = '✖';
+    //                 removeButton.style.position = 'absolute';
+    //                 removeButton.style.top = '2px';
+    //                 removeButton.style.right = '2px';
+    //                 removeButton.style.background = 'rgba(255, 0, 0, 0.7)';
+    //                 removeButton.style.color = 'white';
+    //                 removeButton.style.border = 'none';
+    //                 removeButton.style.borderRadius = '50%';
+    //                 removeButton.style.width = '20px';
+    //                 removeButton.style.height = '20px';
+    //                 removeButton.style.cursor = 'pointer';
+    //                 removeButton.style.display = 'flex';
+    //                 removeButton.style.alignItems = 'center';
+    //                 removeButton.style.justifyContent = 'center';
+    //                 removeButton.style.fontSize = '12px';
 
-                    removeButton.addEventListener('click', () => {
-                        previewItem.remove();
-                        productVideo.value = '';
-                    });
+    //                 removeButton.addEventListener('click', () => {
+    //                     previewItem.remove();
+    //                     productVideo.value = '';
+    //                 });
 
-                    previewItem.appendChild(video);
-                    previewItem.appendChild(removeButton);
-                    videoPreview.appendChild(previewItem);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
+    //                 previewItem.appendChild(video);
+    //                 previewItem.appendChild(removeButton);
+    //                 videoPreview.appendChild(previewItem);
+    //             };
+    //             reader.readAsDataURL(file);
+    //         }
+    //     });
+    // }
 
     // Event listeners for validation
     if (productName) {
@@ -277,9 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (productPicture) {
         productPicture.addEventListener('change', () => checkProductPicture(productPicture));
     }
-    if (productVideo) {
-        productVideo.addEventListener('change', () => checkVideo(productVideo));
-    }
+    // if (productVideo) {
+    //     productVideo.addEventListener('change', () => checkVideo(productVideo));
+    // }
 
     // Form submission
     if (form) {
@@ -291,11 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const isProductCategoryValid = checkProductCategory(productCategory);
             const isQualityValid = checkQuality(quality);
             const isPriceValid = checkPrice(price);
-            const isProductPictureValid = checkProductPicture(productPicture);
-            const isProductVideoValid = checkVideo(productVideo);
+            const isProductPictureValid = productPicture ? checkProductPicture(productPicture) : true;
+            //  const isProductVideoValid = productVideo ? checkVideo(productVideo) : true;
 
             if (isProductNameValid && isDescriptionValid && isProductCategoryValid && 
-                isQualityValid && isPriceValid && isProductPictureValid && isProductVideoValid) {
+                isQualityValid && isPriceValid && isProductPictureValid) {
                 console.log('Form is valid and ready to submit');
                 this.submit();
             } else {

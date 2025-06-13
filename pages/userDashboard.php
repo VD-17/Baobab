@@ -62,6 +62,63 @@
         error_log("Dashboard error: " . $e->getMessage());
         $notifications = [];
     }
+
+    try {
+        // Fetch products bought by the user (from orders)
+        $stmtBoughtProducts = $conn->prepare("
+            SELECT 
+                p.id,
+                p.productName,
+                p.price,
+                p.productPicture,
+                p.quality,
+                oi.quantity,
+                oi.subtotal,
+                o.created_at as purchase_date,
+                o.payment_status,
+                seller.firstname as seller_firstname,
+                seller.lastname as seller_lastname
+            FROM order_items oi
+            JOIN orders o ON o.id = oi.order_id
+            JOIN products p ON p.id = oi.product_id
+            JOIN users seller ON seller.userId = p.userId
+            WHERE o.buyer_id = ? AND o.payment_status = 'paid'
+            ORDER BY o.created_at DESC
+            LIMIT 2
+        ");
+        $stmtBoughtProducts->execute([$userId]);
+        $boughtProducts = $stmtBoughtProducts->fetchAll(PDO::FETCH_ASSOC);
+
+        // Fetch products listed by the user
+        $stmtListedProducts = $conn->prepare("
+            SELECT 
+                p.id,
+                p.productName,
+                p.price,
+                p.productPicture,
+                p.quality,
+                p.productCategory,
+                p.created_at,
+                p.status,
+                COUNT(f.id) as favorite_count,
+                COUNT(DISTINCT o.id) as sales_count
+            FROM products p
+            LEFT JOIN favorites f ON f.productId = p.id
+            LEFT JOIN order_items oi ON oi.product_id = p.id
+            LEFT JOIN orders o ON o.id = oi.order_id AND o.payment_status = 'paid'
+            WHERE p.userId = ?
+            GROUP BY p.id
+            ORDER BY p.created_at DESC
+            LIMIT 2
+        ");
+        $stmtListedProducts->execute([$userId]);
+        $listedProducts = $stmtListedProducts->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        error_log("Products fetch error: " . $e->getMessage());
+        $boughtProducts = [];
+        $listedProducts = [];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -75,19 +132,14 @@
     <link rel="stylesheet" href="../assets/css/userDashboard.css">
 </head>
 <body id="dashboard">
-    <section id="sidebar">
-        <ul>
-            <li id="logo"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo">
-                <p><a href="../root/index.php"><- Back to Home</a></p>
-            </li>
-            <li><a href="../pages/userDashboard.php?userId=<?php echo $_SESSION['userId']; ?>" class="active"><i class="bi bi-grid-fill"></i>Dashboard</a></li>
-            <li><a href="../pages/editProfile.php"><i class="fa-solid fa-circle-user"></i>My Profile</a></li>
-            <li><a href="../pages/myListing.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-list-check"></i>My Listings</a></li>
-            <li><a href="../pages/userTransaction.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-list-check"></i>Transactions</a></li>
-            <li><a href="../pages/conversation.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-message"></i>Messages</a></li>
-            <li><a href="../pages/settings.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-gear"></i>Setting</a></li>
-        </ul>
-    </section>
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    
+    <?php include('../includes/sidebar.php'); ?>
 
     <section id="top-left-section-box">
         <div id="user">
@@ -112,18 +164,18 @@
     <section id="bottom-section">
         <div id="quickAccess">
             <div class="box" onclick="window.location.href='../pages/editProfile.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user-pen"></i>
                 <h5>Edit Profile</h5>
             </div>
-            <div class="box" onclick="window.location.href='../pages/myListing.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-list-check"></i>
-                <h5>My Listings</h5>
-            </div>
             <div class="box" onclick="window.location.href='../pages/profile.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-list-check"></i>
+                <i class="fa-solid fa-user"></i>
                 <h5>My Profile</h5>
             </div>
-            <div class="box" onclick="window.location.href='../page/settings.php?userId=<?php echo $_SESSION['userId']; ?>'">
+            <div class="box" onclick="window.location.href='../pages/edit_bank_details.php?userId=<?php echo $_SESSION['userId']; ?>'">
+                <i class="fa-solid fa-money-check"></i>
+                <h5>Add/Edit Payment Method</h5>
+            </div>
+            <div class="box" onclick="window.location.href='../pages/settings.php?userId=<?php echo $_SESSION['userId']; ?>'">
                 <i class="fa-solid fa-gear"></i>
                 <h5>Settings</h5>
             </div>
@@ -159,19 +211,117 @@
             <button class="normal" onclick="window.location.href='../pages/notification.php'">View All</button>
         </section>
 
-        <section id="Products on Listing">
-            <h3>Products confirmation</h3>
-            <div id="display-Listing-confirmation">
-
+        <section id="Products bought">
+            <h3>Products Bought</h3>
+            <div id="display-bought-product-confirmation">
+                <?php if (!empty($boughtProducts)): ?>
+                    <?php foreach ($boughtProducts as $product): ?>
+                        <div class="product-item">
+                            <!-- <div class="product-image">
+                                <img src="../<?php echo htmlspecialchars($product['productPicture']); ?>" 
+                                    alt="<?php echo htmlspecialchars($product['productName']); ?>" 
+                                    style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                            </div> -->
+                            <div class="product-info">
+                                <h5><?php echo htmlspecialchars($product['productName']); ?></h5>
+                                <p class="product-price">R<?php echo number_format($product['subtotal'], 2); ?></p>
+                                <p class="product-details">
+                                    Qty: <?php echo $product['quantity']; ?> • 
+                                    <?php echo htmlspecialchars($product['quality']); ?>
+                                </p>
+                                <p class="seller-info">
+                                    Sold by: <?php echo htmlspecialchars($product['seller_firstname'] . ' ' . $product['seller_lastname']); ?>
+                                </p>
+                                <span class="product-date">
+                                    Bought: <?php echo date('M d, Y', strtotime($product['purchase_date'])); ?>
+                                </span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="no-products">You haven't bought any products yet.</div>
+                <?php endif; ?>
             </div>
+            <button class="normal" onclick="window.location.href='../pages/viewOrders.php'">View All Orders</button>
         </section>
 
-        <section id="Products bought">
-            <h3>Products Bought confirmation</h3>
-            <div id="display-bought-product-confirmation">
-
+        <section id="Products on Listing">
+            <h3>Products on Sale</h3>
+            <div id="display-Listing-confirmation">
+                <?php if (!empty($listedProducts)): ?>
+                    <?php foreach ($listedProducts as $product): ?>
+                        <div class="product-item">
+                            <div class="product-info">
+                                <h5><?php echo htmlspecialchars($product['productName']); ?></h5>
+                                <div class="product-stats">
+                                    <span class="favorites"><?php echo $product['favorite_count']; ?> favorites</span>
+                                    <span class="sold"><?php echo $product['sales_count']; ?> sold</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="no-products">You haven't listed any products yet.</div>
+                <?php endif; ?>
             </div>
+            <button class="normal" onclick="window.location.href='../pages/myListing.php?userId=<?php echo $_SESSION['userId']; ?>'">View All Listings</button>
         </section>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on sidebar state
+                const icon = toggleBtn.querySelector('i');
+                if (sidebar.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-times';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Reset icon
+                const icon = toggleBtn.querySelector('i');
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Close sidebar when clicking on a link (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('section ul li a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

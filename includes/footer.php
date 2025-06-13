@@ -5,6 +5,7 @@
 ?>
 <head>
     <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/google.css">
 </head>
 <body>
     <footer class="section-p1">
@@ -59,6 +60,26 @@
         <div class="copyright">
             <p>Copyright <i class="fa-regular fa-copyright"></i> 2025 | Baobab. All rights reserved</p>
         </div>
+
+        <div class="footer-translate">
+            <span class="translate-label">🌐 Language:</span>
+            <div id="google_translate_element"></div>
+        </div>
+
+        <script type="text/javascript">
+        function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'af,zu,xh,st,tn,ss,ve,ts,nr,nso,en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+        }
+        </script>
+
+        <script type="text/javascript" 
+                src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+        </script>
     </footer>
 </body>
 </html>

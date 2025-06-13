@@ -76,3 +76,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function viewProduct(productId) {
+    // Add loading state to button
+    const button = event.target.closest('.view-product-btn');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+    button.disabled = true;
+    
+    // Navigate to product page
+    window.location.href = `../pages/viewProduct.php?userId=<?php echo $_SESSION['userId']; ?>&productId=${productId}`;
+}
+
+// Optional: Add keyboard navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const productItems = document.querySelectorAll('.product-item');
+    
+    productItems.forEach(item => {
+        item.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const button = item.querySelector('.view-product-btn');
+                if (button) {
+                    button.click();
+                }
+            }
+        });
+        
+        // Make items focusable for accessibility
+        item.setAttribute('tabindex', '0');
+    });
+});

@@ -136,20 +136,17 @@ include('../includes/head.php');
             <?php if (!empty($notifications)): ?>
                 <?php foreach ($notifications as $notification): ?>
                     <?php
-                    $profilePath = '../uploads/profile_pictures/default.jpg';
+                    // Use the profile picture from the notification user
+                    $profileImageSrc = '../assets/images/Welcome/default_profile.jpg';
                     if (!empty($notification['profile_picture'])) {
-                        $decoded = json_decode($notification['profile_picture'], true);
-                        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded) && !empty($decoded)) {
-                            $profilePath = htmlspecialchars($decoded[0]);
-                        } elseif (!is_array($decoded)) {
-                            $profilePath = htmlspecialchars($notification['profile_picture']);
-                        }
+                        $cleanPath = ltrim($notification['profile_picture'], '/');
+                        $profileImageSrc = '../' . htmlspecialchars($cleanPath) . '?' . mt_rand();
                     }
                     ?>
                     <div class="notification-item" 
                          data-sender-id="<?php echo $notification['sender_id']; ?>" 
                          data-message-id="<?php echo $notification['message_id']; ?>">
-                        <img src="<?php echo $profilePath; ?>" alt="Profile" class="profile-pic">
+                        <img src="<?php echo $profileImageSrc; ?>" alt="Profile Picture" class="profile-pic">
                         <div class="notification-info">
                             <h3 class="notification-sender">
                                 <?php echo htmlspecialchars($notification['firstname'] . ' ' . $notification['lastname']); ?>
@@ -158,8 +155,8 @@ include('../includes/head.php');
                                 <?php echo htmlspecialchars($notification['message']); ?>
                             </p>
                         </div>
-                        <div id="open" onclick="window.location.href='../pages/conversation.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                            <button class="normal">Open</button>
+                        <div class="notification-actions">
+                            <button class="normal" onclick="openConversation(<?php echo $notification['sender_id']; ?>)">Open</button>
                         </div>
                         <span class="notification-time">
                             <?php echo date('M d, H:i', strtotime($notification['sent_at'])); ?>
@@ -172,7 +169,7 @@ include('../includes/head.php');
         </div>
     </section>
 
-    <script>
+    <script> 
         document.addEventListener('DOMContentLoaded', function() {
             const notificationItems = document.querySelectorAll('.notification-item');
 
@@ -190,9 +187,19 @@ include('../includes/head.php');
                         body: JSON.stringify({ message_id: messageId })
                     })
                     .catch(error => console.error('Error:', error));
+
+                    // Navigate to conversation
+                    window.location.href = `../pages/conversation.php?sender_id=${senderId}`;
                 });
             });
         });
+
+        function openConversation(senderId) {
+            window.location.href = `../pages/conversation.php?sender_id=${senderId}`;
+        }
     </script>
+
+    <?php include('../includes/footer.php'); ?>
+
 </body>
 </html>

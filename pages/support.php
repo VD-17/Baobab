@@ -27,7 +27,7 @@ try {
         FROM messages m
         LEFT JOIN users sender ON m.sender_id = sender.userId
         LEFT JOIN users receiver ON m.receiver_id = receiver.userId
-        WHERE m.receiver_id = 1
+        WHERE m.receiver_id = 7
         ORDER BY m.sent_at DESC
     ");
     $stmt->execute();

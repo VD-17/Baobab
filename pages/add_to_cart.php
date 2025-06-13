@@ -32,8 +32,8 @@ try {
     $stmt->execute([$productId]);
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($productId <= 0) {
-        $_SESSION['errors'] = ['Invalid product ID.'];
+    if ($productId <= 0 || !$product) {
+        $_SESSION['errors'] = ['Invalid product ID or product not found.'];
         header('Location: ' . $redirectUrl);
         exit();
     }
@@ -46,7 +46,8 @@ try {
     ");
     $stmt->execute([$userId, $productId, $quantity]);
 
-    $_SESSION['success'] = ['Product added to cart successfully!'];
+    // $_SESSION['success'] = ['Product added to cart successfully!'];
+    $_SESSION['cart_success'] = ['Product added to cart successfully!'];
 
 } catch (PDOException $e) {
     // Log error internally (e.g., to a file or error tracking system)

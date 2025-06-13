@@ -43,7 +43,7 @@ include('../includes/head.php');
         </div>
     </section>
 
-    <section id="contact">
+    <section id="contact"> 
         <div id="heading">
             <span>GET IN TOUCH</span>
             <h2>Visit one of our agency locations or contact us today</h2>
@@ -55,7 +55,7 @@ include('../includes/head.php');
             </div>
             <div class="con">
                 <div id="gif11"></div>
-                <h5>567 River Road, Mowbray, Cape Town</h5>
+                <h5>admin@baobab.com</h5>
             </div>
             <div class="con">
                 <div id="gif12"></div>
@@ -66,6 +66,86 @@ include('../includes/head.php');
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d211826.6772737197!2d18.173230394531256!3d-33.9464818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc43c2a3453f71%3A0x27d53fbebd297f8b!2sEduvos%20Cape%20Town%20-%20Mowbray%20Campus!5e0!3m2!1sen!2sza!4v1746729877970!5m2!1sen!2sza" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
+
+    <section>
+        <div id="messageContainer">
+            <div id="messageHeader">
+                <h3>Chat with Baobab</h3>
+                <!-- <button onclick="closeChat()" style="float: right; background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px;">Close</button> -->
+            </div>
+            
+            <div id="messagesList"></div>
+            
+            <div class="message-input">
+                <input type="text" id="messageText" placeholder="Type a message..." onkeypress="checkEnter(event)">
+                <button onclick="sendMessage()" class="normal">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function sendMessage() {
+            const messageText = document.getElementById('messageText').value.trim();
+            
+            if (messageText === '') {
+                alert('Please enter a message');
+                return;
+            }
+
+            // Check if user is logged in
+            <?php if (!isset($_SESSION['userId'])): ?>
+                alert('Please log in to send messages');
+                return;
+            <?php endif; ?>
+
+            // Send AJAX request
+            fetch('../pages/send_support_message.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: messageText
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('messageText').value = '';
+                    
+                    // Add message to the chat display
+                    const messagesList = document.getElementById('messagesList');
+                    const messageDiv = document.createElement('div');
+                    messageDiv.innerHTML = `
+                        <div style="background: #f0f0f0; padding: 10px; margin: 5px 0; border-radius: 5px;">
+                            <strong>You:</strong> ${messageText}
+                            <small style="float: right;">${new Date().toLocaleTimeString()}</small>
+                        </div>
+                    `;
+                    messagesList.appendChild(messageDiv);
+                    messagesList.scrollTop = messagesList.scrollHeight;
+                    
+                    alert('Message sent successfully!');
+                } else {
+                    alert('Error sending message: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending message');
+            });
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function closeChat() {
+            document.getElementById('messageContainer').style.display = 'none';
+        }
+    </script>
 
     <?php include('../includes/footer.php'); ?>
 

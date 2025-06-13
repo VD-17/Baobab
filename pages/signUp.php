@@ -72,7 +72,7 @@
                 <div class="check">
                     <label>
                         <input type="checkbox" name="terms" id="terms" required>
-                        I agree to the <a href="">Terms & Conditions</a>
+                        I agree to the <a href="../pages/terms.php">Terms & Conditions</a>
                     </label>
                 </div>
                 <div id="submit">

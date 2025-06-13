@@ -3,7 +3,7 @@ session_start();
 require_once '../includes/db_connection.php';
 
 // Pagination settings
-$productsPerPage = 8;
+$productsPerPage = 12;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $productsPerPage;
 
@@ -58,6 +58,11 @@ try {
     <?php include('../includes/header.php'); ?>
 
     <section id="section1" class="padding1">
+        <div class="hero-backdrop">
+            <img src="../assets/images/Headers/about.jpg" alt="Hero Background">
+            <div class="backdrop-overlay"></div>
+        </div>
+
         <div id="about">
             <div id="baobab">
                 <h2>
@@ -229,7 +234,7 @@ try {
         </div>
     </section>
 
-    <section id="section2">
+    <!-- <section id="section2">
         <div class="heading">
             <h3>TOP PRODUCTS</h3>
             <h6>Check out popular products on Baobab</h6>
@@ -268,6 +273,93 @@ try {
                     <img src="../uploads/product_pictures/img_Sophia_Martinez_684339d5861cc_1749236181_9457_1.jpeg" alt="">
                 </div>
             </div>
+    </section> -->
+
+    <section id="section2">
+        <div class="heading">
+            <h3>TOP PRODUCTS</h3>
+            <h6>Check out popular products on Baobab</h6>
+        </div>
+        <div id="grid">
+            <div id="column1">
+                <div class="product-item" data-product-id="123">
+                    <img src="../uploads/product_pictures/img_Vidhi_Maisuria_6839a36f3911e_1748607855_5766_1.jpg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(6)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+                <div class="product-item" data-product-id="124">
+                    <img src="../uploads/product_pictures/img_Ethan_Carter_6843385e314be_1749235806_5521_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(14)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+                <div class="product-item" data-product-id="125">
+                    <img src="../uploads/product_pictures/img_Vidhi_Maisuriya_684345519afd8_1749239121_4656_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(31)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="column2">
+                <div class="product-item" data-product-id="126">
+                    <img src="../uploads/product_pictures/img_Vidhi_Maisuria_6839a48153e9b_1748608129_2547_1.jpg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(7)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+                <div class="product-item" data-product-id="127">
+                    <img src="../uploads/product_pictures/img_Michael_Johnson_684337403746d_1749235520_1833_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(12)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+                <div class="product-item" data-product-id="128">
+                    <img src="../uploads/product_pictures/img_Sophia_Martinez_68433a81de1e1_1749236353_9134_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(17)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="column3">
+                <div class="product-item" data-product-id="129">
+                    <img src="../uploads/product_pictures/img_Olivia_Thompson_68433cf9b51c8_1749236985_2952_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(21)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+                <div class="product-item" data-product-id="130">
+                    <img src="../uploads/product_pictures/img_Vidhi_Maisuriya_68434220c27da_1749238304_7027_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(30)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+                <div class="product-item" data-product-id="131">
+                    <img src="../uploads/product_pictures/img_Sophia_Martinez_684339d5861cc_1749236181_9457_1.jpeg" alt="">
+                    <div class="product-overlay">
+                        <button class="view-product-btn" onclick="viewProduct(16)">
+                            <i class="fas fa-eye"></i> View Product
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="section3" class="section-p1">
@@ -304,7 +396,7 @@ try {
 
     <section id="section4">
         <div class="heading">
-            <h3>BROWSE POPULAR CATEGORIES</h3>
+            <h3>BROWSE TOP SELLER PRODUCTS</h3>
         </div>
         <?php include('../pages/product.php'); ?> 
         <div id="browse">

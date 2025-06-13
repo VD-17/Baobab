@@ -1,3 +1,19 @@
+<?php 
+session_start();
+require_once '../includes/db_connection.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['userId'])) {
+    header('Location: ../pages/signIn.php');
+    exit();
+} 
+
+$user_id = $_SESSION['userId'];
+$check_bank_stmt = $conn->prepare("SELECT id, account_holder_name, bank_name, account_number, is_verified FROM seller_bank_details WHERE userId = ?");
+$check_bank_stmt->execute([$user_id]);
+$user_bank_details = $check_bank_stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -30,17 +46,16 @@ include('../includes/head.php');
             echo '</div>';
         }
     ?>
-    <section id="sidebar">
-        <ul>
-            <li id="logo"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo"></li>
-            <li><a href="../pages/userDashboard.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="bi bi-grid-fill"></i>Dashboard</a></li>
-            <li><a href="../pages/editProfile.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-circle-user"></i>My Profile</a></li>
-            <li><a href="../pages/myListing.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-list-check"></i>My Listings</a></li>
-            <li><a href="../pages/favourite.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-heart"></i>Favourites</a></li>
-            <li><a href="../pages/conversation.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-message"></i>Messages</a></li>
-            <li><a href="../pages/settings.php?userId=<?php echo $_SESSION['userId']; ?>" class="active"><i class="fa-solid fa-gear"></i>Settings</a></li>
-        </ul>
-    </section>
+
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    
+    <?php include('../includes/sidebar.php'); ?>
+
 
     <div class="settings-container">
         <section id="main-heading">
@@ -170,15 +185,62 @@ include('../includes/head.php');
             </div>
             <div class="settings-content">
                 <div class="payment-info">
-                    <p>Add and manage your payment methods for secure transactions</p>
+                    <?php
+                    
+                    if ($user_bank_details) {
+                        // User has bank details - show current info and edit option
+                        echo '<div class="current-payment-method">';
+                        echo '<h5><i class="bi bi-check-circle-fill text-success"></i> Current Payment Method</h5>';
+                        echo '<div class="bank-details-summary">';
+                        echo '<p><strong>Account Holder:</strong> ' . htmlspecialchars($user_bank_details['account_holder_name']) . '</p>';
+                        echo '<p><strong>Bank:</strong> ' . htmlspecialchars($user_bank_details['bank_name']) . '</p>';
+                        echo '<p><strong>Account Number:</strong> ****' . substr($user_bank_details['account_number'], -4) . '</p>';
+                        // echo '<p><strong>Status:</strong> ';
+                        // if ($user_bank_details['is_verified']) {
+                        //     echo '<span class="badge bg-success">Verified</span>';
+                        // } else {
+                        //     echo '<span class="badge bg-warning">Pending Verification</span>';
+                        // }
+                        echo '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                    } else {
+                        // No bank details - show add prompt
+                        echo '<p>Add and manage your payment methods for secure transactions</p>';
+                        echo '<div class="alert alert-info">';
+                        echo '<i class="bi bi-info-circle"></i> ';
+                        echo 'You need to add your bank details to receive payments as a seller.';
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             </div>
-            <button type="button" class="white">
-                <a href="../pages/user_bank_details.php">
-                    <i class="bi bi-wallet"></i>
-                    Add Payment Method
-                </a>
-            </button>
+            
+            <?php if ($user_bank_details): ?>
+                <!-- User has bank details - show edit button -->
+                <div class="payment-actions">
+                    <button type="button" class="white">
+                        <a href="../pages/edit_bank_details.php">
+                            <i class="bi bi-pencil-square"></i>
+                            Edit Payment Method
+                        </a>
+                    </button>
+                    <!-- <button type="button" class="white secondary">
+                        <a href="../pages/bank_verification_help.php">
+                            <i class="bi bi-question-circle"></i>
+                            Verification Help
+                        </a>
+                    </button> -->
+                </div>
+            <?php else: ?>
+                <!-- No bank details - show add button -->
+                <button type="button" class="white">
+                    <a href="../pages/user_bank_details.php">
+                        <i class="bi bi-wallet"></i>
+                        Add Payment Method
+                    </a>
+                </button>
+            <?php endif; ?>
         </section>
 
         <section id="delete">
@@ -220,5 +282,61 @@ include('../includes/head.php');
         });
     </script>
     <script src="../assets/js/settings.js"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on sidebar state
+                const icon = toggleBtn.querySelector('i');
+                if (sidebar.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-times';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Reset icon
+                const icon = toggleBtn.querySelector('i');
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Close sidebar when clicking on a link (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('section ul li a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

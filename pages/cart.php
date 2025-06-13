@@ -3,7 +3,7 @@
     require_once '../includes/db_connection.php';
 
     if (!isset($_SESSION['userId'])) {
-        header('Location: ../pages/login.php');
+        header('Location: ../pages/signIn.php');
         exit();
     }
 

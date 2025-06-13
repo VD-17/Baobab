@@ -317,6 +317,8 @@ include('../includes/head.php');
         </main>
     </div>
 
+    <?php include('../includes/footer.php'); ?>
+
     <script src="../assets/js/filters.js"></script>
 </body>
 </html>

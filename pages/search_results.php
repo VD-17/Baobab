@@ -141,5 +141,7 @@ include('../includes/head.php');
         </div>
     <?php endif; ?>
 
+    <?php include('../includes/footer.php'); ?>
+
 </body>
 </html>

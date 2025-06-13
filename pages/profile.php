@@ -191,7 +191,7 @@
             <div class="products-grid">
                 <?php if (!empty($result)): ?>
                     <?php foreach ($result as $product): ?>
-                        <div class="product-card">
+                        <div class="product-card" onclick="window.location.href='../pages/viewProduct.php?userId=<?php echo $_SESSION['userId']; ?>&productId=<?php echo $product['id']; ?>'">
                             <div class="product-image">
                                 <?php 
                                 $imagePath = '../assets/images/default.jpg';
@@ -239,5 +239,8 @@
             <?php endif; ?>
         </div>
     </section>
+
+    <?php include('../includes/footer.php'); ?>
+
 </body>
 </html>

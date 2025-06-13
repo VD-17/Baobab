@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $update_user->execute([$user_id]);
                 
                 $_SESSION['success_message'] = "Bank details added successfully! We'll send a verification deposit within 1-2 business days.";
-                header('Location: userDashboard.php');
+                header('Location: myListing.php');
                 exit();
             } else {
                 $errors[] = "Failed to save bank details. Please try again.";

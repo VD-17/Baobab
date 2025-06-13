@@ -197,7 +197,7 @@
         <div id="productHeading">
             <h1>List Products</h1>
             <h4>Seamlessly upload manage, and share your product effortlessly</h4>
-            <p>Read the Listing Guidelines <a href="">here</a>.</p>
+            <!-- <p>Read the Listing Guidelines <a href="">here</a>.</p>  -->
         </div>
         <div id="product">
             <div id="createListing">

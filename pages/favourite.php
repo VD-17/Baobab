@@ -48,6 +48,7 @@
 ?> 
 <head>
     <link rel="stylesheet" href="../assets/css/favourite.css"> 
+    <link rel="stylesheet" href="../assets/css/shop.css"> 
 </head>
 <body>
     <?php include('../includes/header.php'); ?>
@@ -81,72 +82,7 @@
 
     <?php include '../pages/product.php'; ?>
 
-    <!-- <section class="section-p1">
-        <table id="listingTable"> 
-            <thead id="tableHeading"> 
-                <tr> 
-                    <th>Item</th> 
-                    <th>Price</th> 
-                    <th>Category</th> 
-                    <th>Location</th> 
-                    <th>Date Added</th> 
-                    <th>Actions</th> 
-                </tr> 
-            </thead> 
-            <tbody id="tabledata"> 
-                <?php if (count($result) > 0): ?>
-                    <?php foreach ($result as $row): ?>
-                        <tr>
-                            <td>
-                                <?php 
-                                $imagePath = '/uploads/product_pictures/default.jpg';
-                                if (!empty($row['image_path'])) {
-                                    $images = json_decode($row['image_path'], true);
-                                    if (json_last_error() === JSON_ERROR_NONE && is_array($images) && !empty($images)) {
-                                        $imagePath = htmlspecialchars($images[0]);
-                                    } elseif (!is_array($images)) {
-                                        $imagePath = htmlspecialchars($row['image_path']);
-                                    }
-                                }
-                                ?>
-                                <img src="<?php echo $imagePath; ?>" alt="Product Image" width="50" height="50" style="object-fit: cover; border-radius: 4px; margin-right: 10px;">
-                                <?php echo htmlspecialchars($row['name']); ?>
-                            </td>
-                            <td>
-                                R<?php echo number_format($row['price'], 2); ?>
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($row['category']); ?>
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($row['location'] ?? 'N/A'); ?>
-                            </td>
-                            <td>
-                                <?php 
-                                if (!empty($row['created_at'])) {
-                                    echo date('Y-m-d', strtotime($row['created_at'])); 
-                                } else {
-                                    echo 'N/A';
-                                }
-                                ?>
-                            </td>
-                            <td>
-                                <select name="action" class="action-select" data-product-id="<?php echo $row['id']; ?>">
-                                    <option value="">Select Action</option>
-                                    <option value="Add-to-Cart">Add to Cart</option>
-                                    <option value="Remove">Remove from Favorites</option>
-                                </select>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="6">You have no favorite products yet. <a href="../pages/shop.php">Browse products</a> to add some favorites!</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody> 
-        </table>
-    </section> -->
+    <?php include('../includes/footer.php'); ?>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {

@@ -79,11 +79,6 @@
                         <img src="<?php echo $imagePath; ?>" 
                              alt="<?php echo htmlspecialchars($row['name']); ?>"
                              onerror="this.src='../assets/images/default.jpg'">
-                        
-                        <!-- Quick view overlay -->
-                        <!-- <div class="quick-view">
-                            <span>Quick View</span>
-                        </div> -->
                     </div>
                     
                     <div class="des">

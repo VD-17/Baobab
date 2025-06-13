@@ -43,7 +43,6 @@
     text-align: center;
     cursor: pointer;
     margin: 7px;
-    cursor: pointer;
 }
 
 #toBaobab a:hover {
@@ -62,7 +61,6 @@
     text-align: center;
     cursor: pointer;
     margin: 7px;
-    cursor: pointer;
 }
 
 #welcome {
@@ -71,7 +69,7 @@
 
 #welcome h1 {
     margin-top: 5%; 
-    font-size: 48px;
+    font-size: clamp(24px, 4vw, 48px);
     line-height: 1;
 }
 
@@ -80,7 +78,7 @@
 }
 
 #welcome p {
-    font-size: 18px;
+    font-size: clamp(14px, 1.5vw, 18px);
     margin-top: 10px;
 }
 
@@ -119,13 +117,13 @@
 }
 
 #account-heading h1 {
-    font-size: 34px;
+    font-size: clamp(24px, 3vw, 34px);
     color: white;
     margin-top: 10px;
 }
 
 #account-heading h6 {
-    font-size: 12px;
+    font-size: clamp(10px, 1.2vw, 12px);
     font-weight: normal;
     color: #6F8187;
 }
@@ -160,7 +158,6 @@
     position: relative;
 }
 
-
 .form i {
     position: absolute;
     left: 10px;
@@ -177,7 +174,7 @@
     outline: none;
     color: white;
     padding: 10px 30px 10px 40px;
-    font-size: 16px;
+    font-size: clamp(14px, 1.2vw, 16px);
     border-radius: 5px;
 }
 
@@ -187,7 +184,7 @@
 }
 
 .form input::placeholder {
-    font-size: 14px;
+    font-size: clamp(12px, 1.1vw, 14px);
     color: #a0a7b8;
 }
 
@@ -198,7 +195,7 @@
 }
 
 .check label {
-    font-size: 12px;
+    font-size: clamp(10px, 1vw, 12px);
     cursor: pointer;
     margin-bottom: 3px;
 }
@@ -226,7 +223,7 @@
 button.normal {
     width: 95%;
     height: 50px;
-    font-size: 16px;
+    font-size: clamp(14px, 1.2vw, 16px);
     font-weight: 580;
     border-radius: 10px;
     margin: 10px auto;
@@ -240,7 +237,7 @@ button.normal:hover {
 select {
     width: 100%;
     padding: 10px 10px 10px 30px;
-    font-size: 14px;
+    font-size: clamp(12px, 1.1vw, 14px);
     border-radius: 5px;
     border: 1px solid #626D81;
     background-color: #626D81;
@@ -283,7 +280,7 @@ select {
     width: 100%;
     height: 100%;
     color: #a0a7b8;
-    font-size: 16px;
+    font-size: clamp(14px, 1.2vw, 16px);
     text-align: center;
     padding: 10px 40px;
 }
@@ -305,7 +302,7 @@ select {
     left: 0;
     cursor: pointer;
     padding: 10px 40px;
-    font-size: 16px;
+    font-size: clamp(14px, 1.2vw, 16px);
 }
 
 .form-file-upload:hover {
@@ -344,28 +341,157 @@ select {
     margin-right: 10px;
 }
 
-
 .form-phone-verify .normal:hover {
     background-color: #e68f17;
 }
 
 .error {
     color: #ff0000;
-    font-size: 9px;
+    font-size: clamp(8px, 0.8vw, 9px);
     margin-top: 5px;
     align-items: self-end;
     display: none;
 }
+
 .error-border {
     border: 2px solid #ff0000 !important;
 }
 
 .form-row a {
     color: white;
-    font-size: 10px;
+    font-size: clamp(8px, 0.9vw, 10px);
     text-decoration: none;
 }
 
 .form-row a:hover {
     text-decoration: underline;
+}
+
+/* Responsive Media Queries */
+@media screen and (max-width: 1024px) {
+    #signUp {
+        max-width: 85%;
+        margin: 30px auto;
+    }
+    
+    #signUp-form {
+        padding: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #signUp {
+        max-width: 95%;
+        height: auto;
+        min-height: 85vh;
+        flex-direction: column;
+        margin: 20px auto;
+        padding: 20px 0;
+    }
+    
+    #image-content {
+        position: static;
+        width: 90%;
+        height: auto;
+        min-height: 300px;
+        margin: 20px auto 0;
+        order: 1;
+    }
+    
+    #signUp-form {
+        position: static;
+        max-width: 90%;
+        height: auto;
+        padding: 30px 20px;
+        order: 2;
+        margin: 0 auto;
+    }
+    
+    #welcome h1 {
+        margin-top: 10px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .form {
+        margin-bottom: 15px;
+    }
+    
+    button.normal {
+        width: 100%;
+        height: 45px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #signUp {
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+    
+    #image-content {
+        width: 95%;
+        margin: 10px auto 0;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    #signUp-form {
+        max-width: 95%;
+        padding: 20px 15px;
+    }
+    
+    #toBaobab img {
+        width: 50px;
+        height: 40px;
+    }
+    
+    .form input {
+        padding: 8px 25px 8px 35px;
+    }
+    
+    .form-file-upload {
+        height: 100px;
+    }
+    
+    .form-file-upload .file-upload-label {
+        padding: 10px 30px;
+    }
+    
+    .check span {
+        padding-right: 20px;
+    }
+    
+    .form-phone-verify {
+        height: 50px;
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .form-phone-verify input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .form-phone-verify .normal {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #signUp-form {
+        padding: 15px 10px;
+    }
+    
+    .form input {
+        padding: 8px 20px 8px 30px;
+    }
+    
+    .form-file-upload .file-upload-label {
+        padding: 10px 20px;
+    }
 }

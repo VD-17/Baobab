@@ -94,7 +94,7 @@
                 <input class="search" type="search" id="searchInput" name="query" 
                     placeholder="Search products or users" 
                     value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>"
-                    autocomplete="on">
+                    autocomplete="off">
                 
                 <div class="search-icons">
                     <button type="submit">

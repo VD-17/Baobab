@@ -23,15 +23,15 @@ include('../includes/head.php');
         </div>
         <div class="topic active">
             <div class="icon"></div>
-            <h4><a href="">Account</a></h4>
+            <h4><a href="../pages/account-faq.php">Account</a></h4>
         </div>
         <div class="topic">
             <div class="icon"></div>
-            <h4><a href="">Selling/Listing</a></h4>
+            <h4><a href="../pages/selling-faq.php">Selling/Listing</a></h4>
         </div>
         <div class="topic">
             <div class="icon"></div>
-            <h4><a href="">Buying</a></h4>
+            <h4><a href="../pages/buying-faq.php">Buying</a></h4>
         </div>
     </section>
 

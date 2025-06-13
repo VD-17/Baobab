@@ -78,6 +78,8 @@ include('../includes/head.php');
         <?php endif; ?>
     </section>
 
+    <?php include('../includes/footer.php'); ?>
+
     <script src="../assets/js/shop.js"></script>
 </body>
 </html>

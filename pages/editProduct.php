@@ -293,24 +293,24 @@
             $errors[] = 'At least one product image is required.';
         }
 
-        $image_paths = uploadImages($_FILES, $_SESSION);
-        if ($image_paths !== null) {
-            $_SESSION['productPicturePath'] = $image_paths;
-            $_SESSION['hasProductPicture'] = true;
-        } else {
-            $_SESSION['productPicturePath'] = null;
-            $_SESSION['hasProductPicture'] = false;
-        }
+        // $image_paths = uploadImages($_FILES, $_SESSION);
+        // if ($image_paths !== null) {
+        //     $_SESSION['productPicturePath'] = $image_paths;
+        //     $_SESSION['hasProductPicture'] = true;
+        // } else {
+        //     $_SESSION['productPicturePath'] = null;
+        //     $_SESSION['hasProductPicture'] = false;
+        // }
 
-        // Handle video upload
-        $video_path = uploadVideo($_FILES, $_SESSION);
-        if ($video_path !== null) {
-            $_SESSION['productVideoPath'] = $video_path;
-            $_SESSION['hasProductVideo'] = true;
-        } else {
-            $_SESSION['productVideoPath'] = null;
-            $_SESSION['hasProductVideo'] = false;
-        }
+        // // Handle video upload
+        // $video_path = uploadVideo($_FILES, $_SESSION);
+        // if ($video_path !== null) {
+        //     $_SESSION['productVideoPath'] = $video_path;
+        //     $_SESSION['hasProductVideo'] = true;
+        // } else {
+        //     $_SESSION['productVideoPath'] = null;
+        //     $_SESSION['hasProductVideo'] = false;
+        // }
 
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
@@ -351,6 +351,7 @@
             $_SESSION['message'] = "Product updated successfully.";
             header('Location: ../pages/myListing.php');
             exit();
+            error_log("Product updated successfully, redirecting to myListing.php");
         } catch (PDOException $e) {
             $conn->rollback();
             $_SESSION['errors'] = ["Error updating product: " . $e->getMessage()];
@@ -502,6 +503,6 @@
             </form>
         </div>
     </section>
-    <script src="../assets/js/editProductValidation.js"></script>
+    <!-- <script src="../assets/js/editProductValidation.js"></script>  -->
 </body>
 </html>

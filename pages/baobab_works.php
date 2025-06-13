@@ -57,8 +57,8 @@ include('../includes/head.php');
             <h3>Ready to Start <span>BUYING</span> and <span>SELLING</span> on Baobab</h3>
             <h5>Join thousands of South Africans who are already using our platform to buy and sell items safely and easily.</h5>
             <div id="btn">
-                <button class="normal">Create your Account</button>
-                <button class="white">Browse Categories</button>
+                <button class="normal" onclick="window.location.href='../pages/signUp.php'">Create your Account</button>
+                <button class="white" onclick="window.location.href='../pages/category.php'">Browse Categories</button>
             </div>
         </div>
     </section>
