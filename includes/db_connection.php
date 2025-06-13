@@ -1,10 +1,10 @@
 <?php
     define('BASE_PATH', dirname(__DIR__));
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "Baobab";
+    $servername = "sql111.infinityfree.com";
+    $username = "if0_39226256";
+    $password = "mUq9NhRFwDMn";
+    $dbname = "if0_39226256_baobab";
 
     try {
         $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
