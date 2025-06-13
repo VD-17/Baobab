@@ -12,10 +12,10 @@ CREATE TABLE users (
     profile_picture VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    phoneNumber VARCHAR(20),
+    phoneNumber VARCHAR(20) NOT NULL,
     is_seller TINYINT DEFAULT 0,
     is_admin TINYINT DEFAULT 0,
-    bio TEXT,
+    bio VARCHAR(500) DEFAULT NULL
 );
 
 CREATE TABLE profileimg (
@@ -51,8 +51,8 @@ CREATE TABLE products (
     productVideo VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    delivery_method,
-    status,
+    delivery_method VARCHAR(50) NOT NULL DEFAULT 'Meet-Up',
+    status enum('active', 'pending') NOT NULL DEFAULT 'pending',
     FOREIGN KEY (userId) REFERENCES users(userId)
 );
 
@@ -126,10 +126,10 @@ CREATE TABLE seller_earnings (
     status ENUM('pending', 'paid', 'disputed') DEFAULT 'pending',
     payout_batch_id INT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    payout_status,
-    payout_id,
-    payout_date,
-    updated_at,
+    payout_status enum('pending','processing','completed','failed') DEFAULT 'pending',
+    payout_id VARCHAR(100) DEFAULT NULL,
+    payout_date datetime DEFAULT NULL,
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
     FOREIGN KEY (seller_id) REFERENCES users(userId),
     FOREIGN KEY (order_id) REFERENCES orders(id)
 );
@@ -148,8 +148,8 @@ CREATE TABLE messages (
 
 CREATE TABLE conversations (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user1_id INT,
-    user2_id INT,
+    user1_id INT DEFAULT NULL,
+    user2_id INT DEFAULT NULL,
     last_message_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user1_id) REFERENCES users(userId),
     FOREIGN KEY (user2_id) REFERENCES users(userId)
