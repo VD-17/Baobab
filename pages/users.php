@@ -77,71 +77,73 @@ include('../includes/head.php');
                     <h1>All Users</h1>
                 </div>
                 <p>Manage all users on the platform</p>
-                <table id="listingTable">
-                    <thead id="tableHeading">
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Location</th>
-                            <th>Is Seller</th>
-                            <th>Registered Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabledata">
-                        <?php if (count($result) > 0): ?>
-                            <?php foreach ($result as $row): ?>
-                                <tr>
-                                    <td>
-                                        <?php
-                                        $imagePath = '../assets/images/default.jpg';
-                                        if (!empty($row['profile_picture'])) {
-                                            $images = json_decode($row['profile_picture'], true);
-                                            if (is_array($images) && !empty($images)) {
-                                                $cleanPath = ltrim($images[0], '/');
-                                                $imagePath = '../' . htmlspecialchars($cleanPath);
-                                            } elseif (!is_array($images)) {
-                                                $cleanPath = ltrim($row['profile_picture'], '/');
-                                                $imagePath = '../' . htmlspecialchars($cleanPath);
-                                            }
-                                        }
-                                        ?>
-                                        <img src="<?php echo $imagePath; ?>" alt="Profile Picture" width="50" height="50" style="object-fit: cover; border-radius: 4px; margin-right: 10px;">
-                                        <?php echo htmlspecialchars($row['firstname'] . ' ' . $row['lastname']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($row['email']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($row['phoneNumber']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($row['street_address'] . ', ' . $row['suburb']); ?>
-                                        <?php echo htmlspecialchars($row['city'] . ', ' . $row['province']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['is_seller'] ? 'Yes' : 'No'; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo date('Y-m-d', strtotime($row['created_at'])); ?>
-                                    </td>
-                                    <td>
-                                        <select name="action" class="action-select" data-user-id="<?php echo htmlspecialchars($row['userId']); ?>">
-                                            <option value="">Select Action</option>
-                                            <option value="View">View</option>
-                                            <option value="Delete">Delete</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
+                <div class="table-container">
+                    <table id="listingTable">
+                        <thead id="tableHeading">
                             <tr>
-                                <td colspan="7">No users found.</td>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Location</th>
+                                <th>Is Seller</th>
+                                <th>Registered Date</th>
+                                <th>Actions</th>
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="tabledata">
+                            <?php if (count($result) > 0): ?>
+                                <?php foreach ($result as $row): ?>
+                                    <tr>
+                                        <td>
+                                            <?php
+                                            $imagePath = '../assets/images/default.jpg';
+                                            if (!empty($row['profile_picture'])) {
+                                                $images = json_decode($row['profile_picture'], true);
+                                                if (is_array($images) && !empty($images)) {
+                                                    $cleanPath = ltrim($images[0], '/');
+                                                    $imagePath = '../' . htmlspecialchars($cleanPath);
+                                                } elseif (!is_array($images)) {
+                                                    $cleanPath = ltrim($row['profile_picture'], '/');
+                                                    $imagePath = '../' . htmlspecialchars($cleanPath);
+                                                }
+                                            }
+                                            ?>
+                                            <img src="<?php echo $imagePath; ?>" alt="Profile Picture" width="50" height="50" style="object-fit: cover; border-radius: 4px; margin-right: 10px;">
+                                            <?php echo htmlspecialchars($row['firstname'] . ' ' . $row['lastname']); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo htmlspecialchars($row['email']); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo htmlspecialchars($row['phoneNumber']); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo htmlspecialchars($row['street_address'] . ', ' . $row['suburb']); ?>
+                                            <?php echo htmlspecialchars($row['city'] . ', ' . $row['province']); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['is_seller'] ? 'Yes' : 'No'; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo date('Y-m-d', strtotime($row['created_at'])); ?>
+                                        </td>
+                                        <td>
+                                            <select name="action" class="action-select" data-user-id="<?php echo htmlspecialchars($row['userId']); ?>">
+                                                <option value="">Select Action</option>
+                                                <option value="View">View</option>
+                                                <option value="Delete">Delete</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7">No users found.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </div>
