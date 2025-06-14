@@ -5,7 +5,7 @@ require_once '../includes/db_connection.php';
 $searchQuery = isset($_GET['query']) ? trim($_GET['query']) : '';
 
 if (empty($searchQuery)) {
-    header('Location: ../root/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -137,7 +137,7 @@ include('../includes/head.php');
     <?php if (empty($users) && empty($products)): ?>
         <div class="search-section">
             <p>No results found for "<?php echo htmlspecialchars($searchQuery); ?>"</p>
-            <a href="../root/index.php">Browse all products</a>
+            <a href="../index.php">Browse all products</a>
         </div>
     <?php endif; ?>
 

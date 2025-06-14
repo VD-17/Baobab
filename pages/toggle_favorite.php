@@ -10,7 +10,7 @@
     if (!isset($_SESSION['userId'])) {
         $_SESSION['errors'] = ['Please log in to manage your favorites.'];
         $redirect = $_POST['redirect_url'] ?? '../pages/shop.php';
-        header('Location: ../pages/login.php?redirect=' . urlencode($redirect));
+        header('Location: ../pages/signIn.php?redirect=' . urlencode($redirect));
         exit();
     } 
 

@@ -8,6 +8,6 @@
     session_destroy();
 
     // Redirect to index.php
-    header("Location: ../../root/index.php");
+    header("Location: ../../index.php");
     exit();
 ?>

@@ -53,7 +53,7 @@
         } else {
             // User not found
             $_SESSION['errors'] = ['User not found.'];
-            header('Location: ../root/index.php');
+            header('Location: ../index.php');
             exit();
         }
 
@@ -67,7 +67,7 @@
     } catch (PDOException $e) {
         error_log("Profile error: " . $e->getMessage());
         $_SESSION['errors'] = ['Error loading profile.'];
-        header('Location: ../root/index.php');
+        header('Location: ../index.php');
         exit();
     }
 

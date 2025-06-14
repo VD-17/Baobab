@@ -5,7 +5,7 @@
     // Check if the user is logged in
     if (!isset($_SESSION['userId'])) {
         $_SESSION['errors'] = ["You must be logged in to view your listings."];
-        header("Location: ../pages/login.php");
+        header("Location: ../pages/signIn.php");
         exit;
     }
 

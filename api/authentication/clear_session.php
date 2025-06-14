@@ -12,6 +12,6 @@ session_destroy();
 // Clear cookie
 setcookie("remember_me", "", time() - 3600, "/");
 
-header("Location: login.php");
+header("Location: signIn.php");
 exit;
 ?>

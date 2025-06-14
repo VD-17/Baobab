@@ -77,16 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function viewProduct(productId) {
-    // Add loading state to button
-    const button = event.target.closest('.view-product-btn');
-    const originalText = button.innerHTML;
-    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-    button.disabled = true;
+// function viewProduct(productId) {
+//     // Add loading state to button
+//     const button = event.target.closest('.view-product-btn');
+//     const originalText = button.innerHTML;
+//     button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+//     button.disabled = false;
     
-    // Navigate to product page
-    window.location.href = `../pages/viewProduct.php?userId=<?php echo $_SESSION['userId']; ?>&productId=${productId}`;
-}
+//     // Navigate to product page
+//     window.location.href = `../pages/viewProduct.php?userId=<?php echo $_SESSION['userId']; ?>&productId=${productId}`;
+// }
 
 // Optional: Add keyboard navigation
 document.addEventListener('DOMContentLoaded', function() {

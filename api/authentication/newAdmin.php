@@ -5,7 +5,7 @@
 
     if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != 1) {
         $_SESSION['errors'] = ["Access denied. Admin privileges required."];
-        header("Location: ../../root/index.php");
+        header("Location: ../../index.php");
         exit;
     }
 

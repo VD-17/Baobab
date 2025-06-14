@@ -1,6 +1,6 @@
 <?php
 // Get user's profile information
-    $headerProfileImageSrc = "../assets/images/Welcome/default_profile.jpg"; // Default
+    $headerProfileImageSrc = "assets/images/Welcome/default_profile.jpg"; // Default
     $headerUserName = "User"; // Default
 
     if (!isset($_SESSION['userId']) || empty($_SESSION['userId'])) {
@@ -32,7 +32,7 @@
             if ($stmtImg->rowCount() > 0) {
                 $rowImg = $stmtImg->fetch(PDO::FETCH_ASSOC);
                 if ($rowImg['status'] == 0 && !empty($rowUser['profile_picture'])) {
-                    $headerProfileImageSrc = "../" . $rowUser['profile_picture'] . "?" . mt_rand();
+                    $headerProfileImageSrc = $rowUser['profile_picture'] . "?" . mt_rand();
                 }
             }
         }
@@ -81,15 +81,15 @@
     include('head.php')
 ?>
 <head>
-    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/header.css">
 </head>
 <body>
     <section id="header">
-        <a href="../index.php">
-            <img src="../assets/images/Logo/logo (1).png" alt="Baobab's Logo" id="logoImg">
+        <a href="index.php">
+            <img src="assets/images/Logo/logo (1).png" alt="Baobab's Logo" id="logoImg">
         </a>
         <div id="searchbar"> 
-            <form action="../pages/search_handler.php" method="GET" style="display: flex; align-items: center; position: relative; width: 100%;">
+            <form action="pages/search_handler.php" method="GET" style="display: flex; align-items: center; position: relative; width: 100%;">
                 <i class="fa-solid fa-magnifying-glass" id="search"></i>
                 <input class="search" type="search" id="searchInput" name="query" 
                     placeholder="Search products or users" 
@@ -114,35 +114,35 @@
                 </a>
                 <div class="dropdown-content">
                     <?php if ($isAdmin == 1): ?>
-                        <a href="../pages/adminDashboard.php?userId=<?php echo $_SESSION['userId']; ?>">Admin Dashboard</a>
-                        <a href="../pages/userDashboard.php?userId=<?php echo $_SESSION['userId']; ?>">User Dashboard</a>
+                        <a href="pages/adminDashboard.php?userId=<?php echo $_SESSION['userId']; ?>">Admin Dashboard</a>
+                        <a href="pages/userDashboard.php?userId=<?php echo $_SESSION['userId']; ?>">User Dashboard</a>
                     <?php else: ?>
-                        <a href="../pages/userDashboard.php?userId=<?php echo $_SESSION['userId']; ?>">My Dashboard</a>
+                        <a href="pages/userDashboard.php?userId=<?php echo $_SESSION['userId']; ?>">My Dashboard</a>
                     <?php endif; ?>
-                    <a href="../pages/myListing.php?userId=<?php echo $_SESSION['userId']; ?>">My Listings</a>
-                    <a href="../pages/settings.php">Settings</php>
+                    <a href="pages/myListing.php?userId=<?php echo $_SESSION['userId']; ?>">My Listings</a>
+                    <a href="pages/settings.php">Settings</php>
                     <hr>
-                    <a href="../api/authentication/logout.php">Logout</a>
+                    <a href="api/authentication/logout.php">Logout</a>
                 </div>
             </li>
-            <li><a href="../pages/cart.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            <li><a href="../pages/notification.php?userId=<?php echo $_SESSION['userId']; ?>">
+            <li><a href="pages/cart.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <li><a href="pages/notification.php?userId=<?php echo $_SESSION['userId']; ?>">
                 <i class="fa-solid fa-bell"></i>
                 <?php if ($unread_notification_count > 0): ?>
                     <sup class="unread-indicator"><?php echo $unread_notification_count; ?></sup>
                 <?php endif; ?>
             </a></li>
-            <li><a href="../pages/conversation.php?userId=<?php echo $_SESSION['userId']; ?>">
+            <li><a href="pages/conversation.php?userId=<?php echo $_SESSION['userId']; ?>">
                 <i class="fa-solid fa-message"></i>
                 <?php if ($unread_message_count > 0): ?>
                     <sup class="unread-indicator"><?php echo $unread_message_count; ?></sup>
                 <?php endif; ?>
             </a></li>
-            <li><a href="../pages/favourite.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-heart"></i></a></li>
-            <button class="white" onclick="window.location.href='../pages/listing.php?userId=<?php echo $_SESSION['userId']; ?>'">Sell</button>
+            <li><a href="pages/favourite.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="fa-solid fa-heart"></i></a></li>
+            <button class="white" onclick="window.location.href='pages/listing.php?userId=<?php echo $_SESSION['userId']; ?>'">Sell</button>
         </div>
     </section>
 
-    <script src="../assets/js/search.js"></script>
+    <script src="assets/js/search.js"></script>
 </body>
 </html>

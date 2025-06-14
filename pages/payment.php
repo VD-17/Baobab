@@ -335,9 +335,9 @@ function generateSignature($data, $passPhrase = null) {
 $data = array(
     'merchant_id' => '10039349',
     'merchant_key' => '1st2fo54c4vnk',
-    'return_url' => 'https://8698-41-56-226-204.ngrok-free.app/Baobab/pages/paymentSuccess.php?order_id=' . $order_id,
-    'cancel_url' => 'https://8698-41-56-226-204.ngrok-free.app/Baobab/pages/cancelPayment.php',
-    'notify_url' => 'https://8698-41-56-226-204.ngrok-free.app/Baobab/pages/notifyPayment.php',
+    'return_url' => 'https://baobab.great-site.net/pages/paymentSuccess.php?order_id=' . $order_id,
+    'cancel_url' => 'https://baobab.great-site.net/pages/cancelPayment.php',
+    'notify_url' => 'https://baobab.great-site.net/pages/notifyPayment.php',
     'name_first' => $user['firstName'] ?? 'Test',
     'name_last'  => $user['lastName'] ?? 'User',
     'email_address'=> $user['email'] ?? 'testbuyer@example.com',

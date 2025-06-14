@@ -87,7 +87,7 @@ if (isset($_SESSION['userId'])) {
             <p><strong>Status:</strong> <?php echo ucfirst($order['payment_status']); ?></p>
         </div>
         
-        <a href="../root/index.php" class="btn">Return to Home</a>
+        <a href="../index.php" class="btn">Return to Home</a>
         <a href="../pages/myOrders.php" class="btn">View My Orders</a>
     </div>
 </body>

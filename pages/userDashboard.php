@@ -157,6 +157,7 @@
             <div class="links">
                 <p><a href="../pages/listing.php"><i class="fa-solid fa-pen-to-square"></i>List Products</a></p>
                 <p><a href="../pages/conversation.php"><i class="fa-solid fa-message"></i>View Messages</a></p>
+                <p><a href="../index.php"><i class="fa-solid fa-house"></i>Go to Home</a></p>
             </div>
         </div>
     </section>

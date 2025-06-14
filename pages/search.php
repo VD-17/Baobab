@@ -101,7 +101,7 @@ include('../includes/head.php');
     <?php if (empty($result)): ?>
         <section class="section-p1">
             <p>No products found matching your search.</p>
-            <a href="../root/index.php">Browse all products</a>
+            <a href="../index.php">Browse all products</a>
         </section>
     <?php else: ?>
         <?php include('../pages/product.php'); ?> 

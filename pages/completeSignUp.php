@@ -86,8 +86,8 @@
     <section id="signUp">
         <div id="image-content">
             <div id="toBaobab">
-                <a href="../root/index.php"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab_logo"></a>
-                <a href="../root/index.php">Back to website <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="../index.php"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab_logo"></a>
+                <a href="../index.php">Back to website <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div id="welcome">
                 <h1>WELCOME TO <span>BAOBAB</span></h1>

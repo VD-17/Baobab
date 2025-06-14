@@ -6,7 +6,7 @@ require_once '../includes/analytics_functions.php';
 // Check if user is admin - Updated to match your database structure
 // if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
 //     $_SESSION['errors'] = ["Access denied. Admin privileges required."];
-//     header("Location: ../root/index.php");
+//     header("Location: ../index.php");
 //     exit;
 // }
 
@@ -36,7 +36,7 @@ include('../includes/head.php');
 <body>
     <section id="sidebar">
         <ul>
-            <li id="logo"><a href="../root/index.php"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo"></a></li>
+            <li id="logo"><a href="../index.php"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo"></a></li>
             <li><a href="../pages/adminDashboard.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="bi bi-grid-fill"></i>Dashboard</a></li>
             <li><a href="../pages/users.php"><i class="fa-solid fa-users"></i>Users</a></li>
             <li><a href="../pages/totalProducts.php"><i class="fa-solid fa-box"></i>Products</a></li>

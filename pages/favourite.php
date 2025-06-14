@@ -4,7 +4,7 @@
 
     if (!isset($_SESSION['userId'])) {
         $_SESSION['errors'] = ['Please log in to view your favorites.'];
-        header('Location: ../pages/login.php?redirect=' . urlencode('../pages/favourite.php'));
+        header('Location: ../pages/signIn.php?redirect=' . urlencode('../pages/favourite.php'));
         exit();
     }
 

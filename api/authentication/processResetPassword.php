@@ -50,7 +50,7 @@ try {
     if ($stmt->rowCount() > 0) {
         echo "Password updated. You can now login.";
         // header("Location: ../pages/signIn.php"); 
-        header("Location: ../root/index.php"); 
+        header("Location: ../../index.php"); 
         unset($_SESSION['reset_token']);
         unset($_SESSION['password']);
     } else {

@@ -31,7 +31,7 @@
                     if ($user['is_admin'] == 1) {
                         header("Location: ../../pages/adminDashboard.php");
                     } else {
-                        header("Location: ../../root/index.php");
+                        header("Location: ../../index.php");
                     }
                     exit();
                     
@@ -88,7 +88,7 @@
         $_SESSION['email'] = $user['email'];
         $_SESSION['logged_in'] = true;
 
-        header('Location: ../../root/index.php'); 
+        header('Location: ../../index.php'); 
         exit();
 
         // Handle Remember Me
@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($user['is_admin'] == 1) {
                     header("Location: ../../pages/adminDashboard.php");
                 } else {
-                    header("Location: ../../root/index.php");
+                    header("Location: ../../index.php");
                 }
                 exit();
                 

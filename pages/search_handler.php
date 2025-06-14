@@ -3,7 +3,7 @@ session_start();
 require_once '../includes/db_connection.php';
 
 if (!isset($_GET['query']) || empty(trim($_GET['query']))) {
-    header('Location: ../root/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -56,7 +56,7 @@ try {
 
 } catch (PDOException $e) {
     $_SESSION['errors'] = ["Search error: " . $e->getMessage()];
-    header('Location: ../root/index.php');
+    header('Location: ../index.php');
     exit();
 }
 ?>

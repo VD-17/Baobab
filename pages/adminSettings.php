@@ -32,7 +32,7 @@ include('../includes/head.php');
     ?>
     <section id="sidebar">
         <ul>
-            <li id="logo"><a href="../root/index.php"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo"></a></li>
+            <li id="logo"><a href="../index.php"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo"></a></li>
             <li><a href="../pages/adminDashboard.php?userId=<?php echo $_SESSION['userId']; ?>"><i class="bi bi-grid-fill"></i>Dashboard</a></li>
             <li><a href="../pages/users.php"><i class="fa-solid fa-users"></i>Users</a></li>
             <li><a href="../pages/totalProducts.php"><i class="fa-solid fa-box"></i>Products</a></li>
