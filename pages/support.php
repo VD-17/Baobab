@@ -59,6 +59,11 @@ include('../includes/head.php');
     </style>
 </head>
 <body id="analytics">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <section id="sidebar">
         <ul>
@@ -101,60 +106,118 @@ include('../includes/head.php');
                     <h1>Support Messages</h1>
                 </div>
                 <p>Manage all Support messages sent to Admin</p>
-                <table id="listingTable">
-                    <thead id="tableHeading">
-                        <tr>
-                            <th style="color: #080357;">From</th>
-                            <th style="color: #080357;">To</th>
-                            <th style="color: #080357;">Message</th>
-                            <th style="color: #080357;">Date & Time</th>
-                            <th style="color: #080357;">Status</th>
-                            <th style="color: #080357;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabledata">
-                        <?php if (count($result) > 0): ?>
-                            <?php foreach ($result as $row): ?>
-                                <tr>
-                                    <td>
-                                        <strong><?php echo htmlspecialchars($row['sender_first_name'] . ' ' . $row['sender_last_name']); ?></strong><br>
-                                        <small><?php echo htmlspecialchars($row['sender_email']); ?></small> 
-                                    </td>
-                                    <td>
-                                        <strong><?php echo htmlspecialchars($row['receiver_first_name'] . ' ' . $row['receiver_last_name']); ?></strong><br>
-                                        <small><?php echo htmlspecialchars($row['receiver_email']); ?></small>
-                                    </td>
-                                    <td class="message-preview">
-                                        <?php echo htmlspecialchars($row['message']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo date('M j, Y', strtotime($row['sent_at'])); ?><br>
-                                        <small><?php echo date('g:i A', strtotime($row['sent_at'])); ?></small>
-                                    </td>
-                                    <td>
-                                        <span class="<?php echo $row['is_read'] ? 'status-read' : 'status-unread'; ?>">
-                                            <?php echo $row['is_read'] ? 'Read' : 'Unread'; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button class="white view-btn" 
-                                                data-sender="<?php echo htmlspecialchars($row['sender_id']); ?>"
-                                                data-message-id="<?php echo htmlspecialchars($row['id']); ?>" style="color: #FF9F1C;">
-                                            View
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
+                <div class="table-container">
+                    <table id="listingTable">
+                        <thead id="tableHeading">
                             <tr>
-                                <td colspan="6">No messages found.</td>
+                                <th style="color: #080357;">From</th>
+                                <th style="color: #080357;">To</th>
+                                <th style="color: #080357;">Message</th>
+                                <th style="color: #080357;">Date & Time</th>
+                                <th style="color: #080357;">Status</th>
+                                <th style="color: #080357;">Actions</th>
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="tabledata">
+                            <?php if (count($result) > 0): ?>
+                                <?php foreach ($result as $row): ?>
+                                    <tr>
+                                        <td>
+                                            <strong><?php echo htmlspecialchars($row['sender_first_name'] . ' ' . $row['sender_last_name']); ?></strong><br>
+                                            <small><?php echo htmlspecialchars($row['sender_email']); ?></small> 
+                                        </td>
+                                        <td>
+                                            <strong><?php echo htmlspecialchars($row['receiver_first_name'] . ' ' . $row['receiver_last_name']); ?></strong><br>
+                                            <small><?php echo htmlspecialchars($row['receiver_email']); ?></small>
+                                        </td>
+                                        <td class="message-preview">
+                                            <?php echo htmlspecialchars($row['message']); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo date('M j, Y', strtotime($row['sent_at'])); ?><br>
+                                            <small><?php echo date('g:i A', strtotime($row['sent_at'])); ?></small>
+                                        </td>
+                                        <td>
+                                            <span class="<?php echo $row['is_read'] ? 'status-read' : 'status-unread'; ?>">
+                                                <?php echo $row['is_read'] ? 'Read' : 'Unread'; ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="white view-btn" 
+                                                    data-sender="<?php echo htmlspecialchars($row['sender_id']); ?>"
+                                                    data-message-id="<?php echo htmlspecialchars($row['id']); ?>" style="color: #FF9F1C;">
+                                                View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6">No messages found.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on sidebar state
+                const icon = toggleBtn.querySelector('i');
+                if (sidebar.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-times';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Reset icon
+                const icon = toggleBtn.querySelector('i');
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Close sidebar when clicking on a link (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('section ul li a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

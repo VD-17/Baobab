@@ -1,26 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Section 1 auto-scroll
+    // const carousel = document.querySelector('#category-carousel');
+    // if (carousel) {
+    //     const categoryItems = document.querySelectorAll('.cat');
+    //     const itemWidth = categoryItems[0].offsetWidth + 20;
+    //     let autoScroll;
+    //     function startAutoScroll() {
+    //         autoScroll = setInterval(() => {
+    //             if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
+    //                 carousel.scrollTo({ left: 0, behavior: 'smooth' });
+    //             } else {
+    //                 carousel.scrollBy({ left: itemWidth * 3, behavior: 'smooth' });
+    //             }
+    //         }, 500);
+    //     }
+    //     function stopAutoScroll() {
+    //         clearInterval(autoScroll);
+    //     }
+    //     carousel.addEventListener('mouseenter', stopAutoScroll);
+    //     carousel.addEventListener('mouseleave', startAutoScroll);
+    //     startAutoScroll();
+    // }
+
     const carousel = document.querySelector('#category-carousel');
+
     if (carousel) {
-        const categoryItems = document.querySelectorAll('.cat');
-        const itemWidth = categoryItems[0].offsetWidth + 20;
-        let autoScroll;
+        const categoryItems = carousel.querySelectorAll('.cat');
+        if (categoryItems.length === 0) return;
+
+        let scrollSpeed = 1;
+        let animationId;
+        let buffer = 160;
+
+        function animateScroll() {
+            // If we've scrolled to the end, reset to start
+            if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - buffer) {
+                carousel.scrollLeft = 0;
+            } else {
+                carousel.scrollLeft += scrollSpeed;
+            }
+
+            animationId = requestAnimationFrame(animateScroll);
+        }
+
         function startAutoScroll() {
-            autoScroll = setInterval(() => {
-                if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: itemWidth * 3, behavior: 'smooth' });
-                }
-            }, 5000);
+            if (!animationId) animationId = requestAnimationFrame(animateScroll);
         }
+
         function stopAutoScroll() {
-            clearInterval(autoScroll);
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
         }
+
+        // Pause scrolling on hover
         carousel.addEventListener('mouseenter', stopAutoScroll);
         carousel.addEventListener('mouseleave', startAutoScroll);
+
+        // Start scrolling
         startAutoScroll();
     }
+
 
     // Section 5 auto-scroll
     const reviewContainer = document.querySelector('#reviews');
@@ -76,17 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-// function viewProduct(productId) {
-//     // Add loading state to button
-//     const button = event.target.closest('.view-product-btn');
-//     const originalText = button.innerHTML;
-//     button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-//     button.disabled = false;
-    
-//     // Navigate to product page
-//     window.location.href = `../pages/viewProduct.php?userId=<?php echo $_SESSION['userId']; ?>&productId=${productId}`;
-// }
 
 // Optional: Add keyboard navigation
 document.addEventListener('DOMContentLoaded', function() {

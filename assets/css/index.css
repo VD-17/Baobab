@@ -458,7 +458,7 @@
     padding: 0;
 }
 
-/* Hero Backdrop */
+/* Hero Backdrop - Enhanced Responsive */
 .hero-backdrop {
     position: absolute;
     top: 0;
@@ -473,8 +473,12 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    /* Optimize for different screen sizes */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
+/* Enhanced Backdrop Overlay */
 .backdrop-overlay {
     position: absolute;
     top: 0;
@@ -491,38 +495,65 @@
     z-index: -1;
 }
 
+/* Main About Container - Enhanced Responsive */
 #about {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding: 80px 20px 40px;
+    gap: clamp(20px, 4vw, 40px);
+    padding: clamp(40px, 8vw, 80px) clamp(15px, 4vw, 20px) clamp(20px, 4vw, 40px);
     position: relative;
     z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Baobab Header - Enhanced Responsive */
 #baobab h2 {
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    margin-bottom: 30px;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    margin-bottom: clamp(15px, 3vw, 30px);
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: clamp(0.5px, 0.2vw, 1.5px);
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 15px);
+    line-height: 1.2;
 }
 
 #baobab h2 img {
-    width: clamp(45px, 10vw, 60px);
-    margin-right: 15px;
+    width: clamp(35px, 8vw, 60px);
+    height: auto;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    flex-shrink: 0;
 }
 
 #baobab h2 span {
     color: #FF9F1C;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* More Info Section - Enhanced Responsive */
+#moreInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(15px, 3vw, 25px);
+    text-align: center;
+    padding: 0 clamp(10px, 3vw, 20px);
+}
+
+#moreInfo h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: #ffffff;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8);
 }
 
 #moreInfo h1 span {
@@ -565,22 +596,22 @@
 }
 
 #moreInfo h5 {
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    color: #3C426F;
-    margin-bottom: 40px;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: #ffffff;
     font-weight: 400;
-    max-width: 600px;
-    margin: 0 auto 40px;
+    max-width: clamp(300px, 80vw, 600px);
+    margin: 0;
     line-height: 1.6;
-    /* text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    padding: 0 10px;
 }
 
 #moreInfo h5 span {
     color: #FF9F1C;
     font-weight: 700;
-    /* text-shadow: 
+    text-shadow: 
         0 0 15px rgba(255, 159, 28, 0.6),
-        2px 2px 12px rgba(0, 0, 0, 0.9); */
+        2px 2px 12px rgba(0, 0, 0, 0.9);
     position: relative;
 }
 
@@ -602,39 +633,35 @@
     50% { transform: scaleX(1); }
 }
 
-.trust-text {
-    color: #ffffff;
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    font-weight: 500;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
-    margin-top: 20px;
-}
-
-/* Enhanced Action Buttons for Backdrop */
+/* Enhanced Responsive Action Buttons */
 #action {
     display: flex;
-    gap: clamp(15px, 4vw, 25px);
+    gap: clamp(12px, 3vw, 25px);
     justify-content: center;
-    margin-bottom: clamp(20px, 4vw, 30px);
+    margin: clamp(15px, 3vw, 25px) 0;
     flex-wrap: wrap;
-    padding: 0 10px;
+    padding: 0 clamp(10px, 3vw, 20px);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #action button {
-    padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 36px);
+    padding: clamp(12px, 2.5vw, 18px) clamp(20px, 4vw, 36px);
     border: none;
     border-radius: 50px;
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: clamp(140px, 20vw, 160px);
+    min-width: clamp(120px, 25vw, 160px);
+    max-width: clamp(200px, 40vw, 250px);
     position: relative;
     overflow: hidden;
     text-align: center;
-    white-space: nowrap;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    flex: 1;
+    max-width: 200px;
 }
 
 #action button a {
@@ -643,11 +670,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(8px, 1.5vw, 10px);
+    gap: clamp(6px, 1.5vw, 10px);
     width: 100%;
     height: 100%;
     font-weight: inherit;
     font-size: inherit;
+    white-space: nowrap;
+}
+
+#action button a i {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    transition: transform 0.3s ease;
+}
+
+#action button:hover a i {
+    transform: translateX(3px);
 }
 
 /* Enhanced Normal button (Shop Now) */
@@ -678,6 +715,220 @@
     border-color: rgba(255, 159, 28, 0.8);
 }
 
+/* Trust Text */
+#about > p {
+    color: #ffffff;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    font-weight: 500;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    margin: clamp(10px, 2vw, 20px) 0 0 0;
+    opacity: 0.9;
+}
+
+/* Tablet Specific Styles */
+@media (max-width: 768px) {
+    #section1 {
+        min-height: 100vh;
+        padding: 0;
+    }
+    
+    #about {
+        padding: clamp(30px, 6vw, 60px) clamp(15px, 4vw, 25px);
+        gap: clamp(15px, 3vw, 25px);
+    }
+    
+    #baobab h2 {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    #baobab h2 img {
+        width: clamp(40px, 10vw, 50px);
+    }
+    
+    #moreInfo h1 {
+        line-height: 1.2;
+        hyphens: auto;
+        word-break: break-word;
+    }
+    
+    #action {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    #action button {
+        width: 100%;
+        max-width: 280px;
+        min-width: unset;
+    }
+    
+    .backdrop-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(8, 3, 87, 0.9) 0%,
+            rgba(60, 66, 111, 0.8) 30%,
+            rgba(255, 159, 28, 0.2) 70%,
+            rgba(8, 3, 87, 0.9) 100%
+        );
+    }
+}
+
+/* Mobile Specific Styles */
+@media (max-width: 480px) {
+    #section1 {
+        min-height: 100vh;
+    }
+    
+    #about {
+        padding: clamp(25px, 5vw, 40px) 15px;
+        gap: 15px;
+    }
+    
+    #baobab h2 {
+        font-size: clamp(1.5rem, 6vw, 2.2rem);
+        gap: 8px;
+    }
+    
+    #moreInfo h1 {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+        line-height: 1.1;
+    }
+    
+    #moreInfo h5 {
+        font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+        max-width: 100%;
+        padding: 0 5px;
+    }
+    
+    #action button {
+        padding: 14px 20px;
+        font-size: 0.9rem;
+        min-height: 48px; /* Touch target minimum */
+    }
+    
+    #action button a {
+        gap: 8px;
+    }
+    
+    .backdrop-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(8, 3, 87, 0.92) 0%,
+            rgba(60, 66, 111, 0.85) 30%,
+            rgba(255, 159, 28, 0.25) 70%,
+            rgba(8, 3, 87, 0.92) 100%
+        );
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+    #about {
+        padding: 20px 10px;
+        gap: 12px;
+    }
+    
+    #baobab h2 {
+        font-size: clamp(1.3rem, 6vw, 1.8rem);
+        letter-spacing: 0.5px;
+    }
+    
+    #moreInfo h1 {
+        font-size: clamp(1.6rem, 8vw, 2.2rem);
+    }
+    
+    #moreInfo h5 {
+        font-size: clamp(0.85rem, 4vw, 1rem);
+    }
+    
+    #action button {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        border-radius: 25px;
+    }
+}
+
+/* High Resolution Displays */
+@media (min-width: 1200px) {
+    #about {
+        padding: 100px 40px 60px;
+        gap: 50px;
+    }
+    
+    #baobab h2 {
+        margin-bottom: 40px;
+    }
+    
+    #action {
+        margin: 35px 0;
+    }
+    
+    #action button {
+        min-width: 180px;
+        max-width: 220px;
+    }
+}
+
+/* Landscape Mobile Orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    #section1 {
+        min-height: 100vh;
+    }
+    
+    #about {
+        padding: 20px 15px;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    #baobab h2 {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        margin-bottom: 10px;
+    }
+    
+    #moreInfo h1 {
+        font-size: clamp(1.5rem, 5vw, 2.2rem);
+    }
+    
+    #moreInfo h5 {
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+    }
+    
+    #action {
+        margin: 15px 0;
+        gap: 15px;
+    }
+    
+    #action button {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        min-height: 40px;
+    }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    #moreInfo h1 span {
+        animation: none;
+    }
+    
+    #moreInfo h5 span::before {
+        animation: none;
+        transform: scaleX(1);
+    }
+    
+    #action button {
+        transition: none;
+    }
+    
+    #action button:hover {
+        transform: none;
+    }
+}
+
 /* Category section adjustments */
 #category {
     max-width: 1600px;
@@ -689,25 +940,42 @@
     padding: 40px 20px 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    flex-wrap: nowrap;
 }
 
 #category-carousel {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    /* scroll-snap-type: x mandatory; */
     gap: 25px;
-    padding: 20px 0 30px;
+    /* padding: 20px 25px 30px 0;  */
+    padding: 20px 0 30px; 
     scrollbar-width: none;
     -ms-overflow-style: none;
+    /* scroll-behavior: smooth; */
+    scrollbar-width: none;
+    white-space: nowrap;
+    touch-action: pan-x;
+    /* transition: transform 0.1s linear;  */
 }
 
 #category-carousel::-webkit-scrollbar {
     display: none;
 }
 
+#category-carousel::after {
+    content: '';
+    flex: 0 0 clamp(100px, 3vw, 80px);
+}
+
 .cat {
     flex: 0 0 clamp(280px, 25vw, 320px);
-    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-shrink: 0;
+    /* scroll-snap-align: start; */
 }
 
 .cat .content {

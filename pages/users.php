@@ -35,6 +35,11 @@ include('../includes/head.php');
     <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body id="mylist">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <section id="sidebar">
         <ul>
@@ -147,6 +152,62 @@ include('../includes/head.php');
             </div>
         </section>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on sidebar state
+                const icon = toggleBtn.querySelector('i');
+                if (sidebar.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-times';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Reset icon
+                const icon = toggleBtn.querySelector('i');
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Close sidebar when clicking on a link (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('section ul li a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

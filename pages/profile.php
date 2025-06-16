@@ -126,7 +126,7 @@
     <?php if (!$isOwnProfile): ?>
         <div style="background: #f8f9fa; padding: 10px; text-align: center; margin-bottom: 20px;">
             <h3>Viewing <?php echo htmlspecialchars($userName); ?>'s Profile</h3>
-            <a href="../root/index.php" style="color: #007bff;">← Back to Home</a>
+            <a href="../index.php" style="color: #007bff;">← Back to Home</a>
         </div>
     <?php endif; ?>
     

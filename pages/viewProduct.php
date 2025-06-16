@@ -266,17 +266,51 @@ include('../includes/head.php');
 
     <?php endif; ?>
 
-    <div>
-        <h2>SIMILAR PRODUCTS</h2>
+    <section class="similar-products-section">
+        <h2>SIMILAR Category PRODUCTS</h2>
         <?php
         if ($product) {
             $category = $product['category'] ?? '';
-            $stmt = $conn->prepare("SELECT id, productName AS name, price, productCategory AS category FROM products WHERE productCategory = ? AND id != ? LIMIT 4");
+            
+            $stmt = $conn->prepare("SELECT id, productName AS name, price, productCategory AS category, productPicture AS image_path FROM products WHERE productCategory = ? AND id != ? LIMIT 4");
             $stmt->execute([$category, $productId]);
             $similarProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
-    </div>
+        
+        <?php if (!empty($similarProducts)): ?>
+            <div class="similar-products-grid">
+                <?php foreach ($similarProducts as $similarProduct): ?>
+                    <div class="product-item">
+                        <?php
+                        // Handle image path similar to main product
+                        $similarImagePath = '../assets/images/default-product.jpg'; // Default image
+                        if (!empty($similarProduct['image_path'])) {
+                            $decoded = json_decode($similarProduct['image_path'], true);
+                            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded) && !empty($decoded)) {
+                                $similarImagePath = '../' . ltrim(htmlspecialchars($decoded[0]), '/');
+                            } else {
+                                $cleanPath = ltrim($similarProduct['image_path'], '/');
+                                $similarImagePath = '../' . htmlspecialchars($cleanPath);
+                            }
+                        }
+                        ?>
+                        <a href="viewProduct.php?productId=<?php echo $similarProduct['id']; ?>">
+                            <img src="<?php echo $similarImagePath; ?>" 
+                                alt="<?php echo htmlspecialchars($similarProduct['name']); ?>"
+                                loading="lazy">
+                            <h4><?php echo htmlspecialchars($similarProduct['name']); ?></h4>
+                            <p>R<?php echo number_format($similarProduct['price'], 2); ?></p>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="no-products-message">
+                <p>No similar products found in this category.</p>
+            </div>
+        <?php endif; ?>
+    </section>
 
     <?php include('../includes/footer.php'); ?>
 

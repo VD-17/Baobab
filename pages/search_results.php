@@ -81,7 +81,7 @@ include('../includes/head.php');
             margin-right: 15px;
         }
         .view-all-btn {
-            background: #007bff;
+            background: #3C426F;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
@@ -144,4 +144,4 @@ include('../includes/head.php');
     <?php include('../includes/footer.php'); ?>
 
 </body>
-</html>
+</html> 

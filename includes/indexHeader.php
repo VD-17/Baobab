@@ -11,3 +11,10 @@
         include('indexGuestHeader.php');
     }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <script src="assets/js/indexSearch.js"></script>
+</body>
+</html>

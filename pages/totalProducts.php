@@ -37,6 +37,11 @@ include('../includes/head.php');
     <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body id="mylist">  
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <section id="sidebar">
         <ul>
@@ -78,79 +83,137 @@ include('../includes/head.php');
                 <div id="heading">
                     <h1>All Product Listings</h1>
                 </div>
-                <p>Manage all products on the platform</p>
-                <table id="listingTable"> 
-                    <thead id="tableHeading"> 
-                        <tr> 
-                            <th>Item</th> 
-                            <th>Price</th> 
-                            <th>Category</th>
-                            <th>Seller</th>
-                            <th>Status</th> 
-                            <th>Date</th> 
-                            <th>Actions</th> 
-                        </tr> 
-                    </thead> 
-                    <tbody id="tabledata"> 
-                        <?php if (count($result) > 0): ?>
-                            <?php foreach ($result as $row): ?>
-                                <tr>
-                                    <td>
-                                        <?php 
-                                        $imagePath = '../assets/images/default.jpg';
-                                        if (!empty($row['image_path'])) {
-                                            $images = json_decode($row['image_path'], true);
-                                            if (is_array($images) && !empty($images)) {
-                                                $cleanPath = ltrim($images[0], '/');
-                                                $imagePath = '../' . htmlspecialchars($cleanPath);
-                                            } elseif (!is_array($images)) {
-                                                $cleanPath = ltrim($row['image_path'], '/');
-                                                $imagePath = '../' . htmlspecialchars($cleanPath);
+                <p>Manage all products on the platform</p> 
+                <div class="table-container">
+                    <table id="listingTable"> 
+                        <thead id="tableHeading"> 
+                            <tr> 
+                                <th>Item</th> 
+                                <th>Price</th> 
+                                <th>Category</th>
+                                <th>Seller</th>
+                                <th>Status</th> 
+                                <th>Date</th> 
+                                <th>Actions</th> 
+                            </tr> 
+                        </thead> 
+                        <tbody id="tabledata"> 
+                            <?php if (count($result) > 0): ?>
+                                <?php foreach ($result as $row): ?>
+                                    <tr>
+                                        <td>
+                                            <?php 
+                                            $imagePath = '../assets/images/default.jpg';
+                                            if (!empty($row['image_path'])) {
+                                                $images = json_decode($row['image_path'], true);
+                                                if (is_array($images) && !empty($images)) {
+                                                    $cleanPath = ltrim($images[0], '/');
+                                                    $imagePath = '../' . htmlspecialchars($cleanPath);
+                                                } elseif (!is_array($images)) {
+                                                    $cleanPath = ltrim($row['image_path'], '/');
+                                                    $imagePath = '../' . htmlspecialchars($cleanPath);
+                                                }
                                             }
-                                        }
-                                        ?>
-                                        <img src="<?php echo $imagePath; ?>" alt="Product Image" width="50" height="50" style="object-fit: cover; border-radius: 4px; margin-right: 10px;">
-                                        <?php echo htmlspecialchars($row['name']); ?>
-                                    </td>
-                                    <td>
-                                        R<?php echo number_format($row['price'], 2); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($row['category']); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo htmlspecialchars($row['firstname'] . ' ' . $row['lastname']); ?><br>
-                                        <small style="color: #666;"><?php echo htmlspecialchars($row['email']); ?></small>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge status-<?php echo strtolower($row['status']); ?>">
-                                            <?php echo htmlspecialchars($row['status']); ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <?php echo date('Y-m-d', strtotime($row['created_at'])); ?>
-                                    </td>
-                                    <td>
-                                        <select name="action" class="action-select" data-product-id="<?php echo $row['id']; ?>" data-user-id="<?php echo $row['userId']; ?>">
-                                            <option value="">Select Action</option>
-                                            <option value="View">View</option>
-                                            <option value="Approve" <?php echo $row['status'] === 'approved' ? 'style="display:none;"' : ''; ?>>Approve</option>
-                                            <option value="Reject" <?php echo $row['status'] === 'rejected' ? 'style="display:none;"' : ''; ?>>Reject</option>
-                                            <option value="Delete">Delete</option>
-                                        </select>
-                                    </td>
+                                            ?>
+                                            <img src="<?php echo $imagePath; ?>" alt="Product Image" width="50" height="50" style="object-fit: cover; border-radius: 4px; margin-right: 10px;">
+                                            <?php echo htmlspecialchars($row['name']); ?>
+                                        </td>
+                                        <td>
+                                            R<?php echo number_format($row['price'], 2); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo htmlspecialchars($row['category']); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo htmlspecialchars($row['firstname'] . ' ' . $row['lastname']); ?><br>
+                                            <small style="color: #666;"><?php echo htmlspecialchars($row['email']); ?></small>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-<?php echo strtolower($row['status']); ?>">
+                                                <?php echo htmlspecialchars($row['status']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <?php echo date('Y-m-d', strtotime($row['created_at'])); ?>
+                                        </td>
+                                        <td>
+                                            <select name="action" class="action-select" data-product-id="<?php echo $row['id']; ?>" data-user-id="<?php echo $row['userId']; ?>">
+                                                <option value="">Select Action</option>
+                                                <option value="View">View</option>
+                                                <option value="Approve" <?php echo $row['status'] === 'approved' ? 'style="display:none;"' : ''; ?>>Approve</option>
+                                                <option value="Reject" <?php echo $row['status'] === 'rejected' ? 'style="display:none;"' : ''; ?>>Reject</option>
+                                                <option value="Delete">Delete</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7">No products found.</td>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="7">No products found.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody> 
-                </table> 
+                            <?php endif; ?>
+                        </tbody> 
+                    </table>
+                </div> 
             </div> 
         </section>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on sidebar state
+                const icon = toggleBtn.querySelector('i');
+                if (sidebar.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-times';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Reset icon
+                const icon = toggleBtn.querySelector('i');
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Close sidebar when clicking on a link (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('section ul li a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

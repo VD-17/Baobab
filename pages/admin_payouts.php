@@ -175,7 +175,13 @@ try {
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/payouts.css">
 </head>
-<body>
+<body id="pay">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
     <section id="sidebar">
         <ul>
             <li id="logo"><img src="../assets/images/Logo/Baobab_favicon.png" alt="Baobab logo"></li>
@@ -219,81 +225,149 @@ try {
         <h2>Pending Payouts</h2>
         <?php if (!empty($pending_earnings)): ?>
             <div class="bulk-actions">
-                <button class="btn btn-success" onclick="selectAll()">Select All</button>
-                <button class="btn btn-warning" onclick="processBulk()">Process Selected</button>
+                <button class="btn btn-success" onclick="selectAll()">
+                    <i class="fas fa-check-all"></i> Select All
+                </button>
+                <button class="btn btn-warning" onclick="processBulk()">
+                    <i class="fas fa-credit-card"></i> Process Selected
+                </button>
             </div>
             
-            <table class="earnings-table">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="select-all"></th>
-                        <th>Order #</th>
-                        <th>Seller</th>
-                        <th>Email</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($pending_earnings as $earning): ?>
-                    <tr>
-                        <td><input type="checkbox" class="earning-checkbox" value="<?php echo $earning['id']; ?>"></td>
-                        <td><?php echo htmlspecialchars($earning['order_number']); ?></td>
-                        <td>
-                            <?php echo htmlspecialchars($earning['firstName'] . ' ' . $earning['lastName']); ?>
-                            <span class="seller-badge">SELLER</span>
-                        </td>
-                        <td><?php echo htmlspecialchars($earning['email']); ?></td>
-                        <td>R<?php echo number_format($earning['amount'], 2); ?></td>
-                        <td><?php echo date('Y-m-d H:i', strtotime($earning['created_at'])); ?></td>
-                        <td>
-                            <button class="btn btn-primary btn-small" onclick="processSingle(<?php echo $earning['id']; ?>)">
-                                Process
-                            </button>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="earnings-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th>Order #</th>
+                                <th>Seller</th>
+                                <th>Email</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($pending_earnings as $earning): ?>
+                            <tr>
+                                <td><input type="checkbox" class="earning-checkbox" value="<?php echo $earning['id']; ?>"></td>
+                                <td><?php echo htmlspecialchars($earning['order_number']); ?></td>
+                                <td>
+                                    <?php echo htmlspecialchars($earning['firstName'] . ' ' . $earning['lastName']); ?>
+                                    <span class="seller-badge">Seller</span>
+                                </td>
+                                <td><?php echo htmlspecialchars($earning['email']); ?></td>
+                                <td>R<?php echo number_format($earning['amount'], 2); ?></td>
+                                <td><?php echo date('M d, Y H:i', strtotime($earning['created_at'])); ?></td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="processSingle(<?php echo $earning['id']; ?>)">
+                                        <i class="fas fa-check"></i> Process
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         <?php else: ?>
-            <p>No pending payouts for verified sellers.</p>
+            <p><i class="fas fa-info-circle"></i> No pending payouts for verified sellers.</p>
         <?php endif; ?>
 
         <!-- Completed Payouts -->
         <h2>Recent Completed Payouts</h2>
         <?php if (!empty($completed_earnings)): ?>
-            <table class="earnings-table">
-                <thead>
-                    <tr>
-                        <th>Order #</th>
-                        <th>Seller</th>
-                        <th>Amount</th>
-                        <th>Payout ID</th>
-                        <th>Payout Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($completed_earnings as $earning): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($earning['order_number']); ?></td>
-                        <td>
-                            <?php echo htmlspecialchars($earning['firstName'] . ' ' . $earning['lastName']); ?>
-                            <span class="seller-badge">SELLER</span>
-                        </td>
-                        <td>R<?php echo number_format($earning['amount'], 2); ?></td>
-                        <td><?php echo htmlspecialchars($earning['payout_id'] ?? 'N/A'); ?></td>
-                        <td><?php echo $earning['payout_date'] ? date('Y-m-d H:i', strtotime($earning['payout_date'])) : 'N/A'; ?></td>
-                        <td><span class="status-completed">Completed</span></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table class="earnings-table">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Seller</th>
+                                <th>Amount</th>
+                                <th>Payout ID</th>
+                                <th>Payout Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($completed_earnings as $earning): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($earning['order_number']); ?></td>
+                                <td>
+                                    <?php echo htmlspecialchars($earning['firstName'] . ' ' . $earning['lastName']); ?>
+                                    <span class="seller-badge">Seller</span>
+                                </td>
+                                <td>R<?php echo number_format($earning['amount'], 2); ?></td>
+                                <td><?php echo htmlspecialchars($earning['payout_id'] ?? 'N/A'); ?></td>
+                                <td><?php echo $earning['payout_date'] ? date('M d, Y H:i', strtotime($earning['payout_date'])) : 'N/A'; ?></td>
+                                <td><span class="status-completed">Completed</span></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         <?php else: ?>
-            <p>No completed payouts found.</p>
+            <p><i class="fas fa-info-circle"></i> No completed payouts found.</p>
         <?php endif; ?>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on sidebar state
+                const icon = toggleBtn.querySelector('i');
+                if (sidebar.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-times';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('section ul');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Reset icon
+                const icon = toggleBtn.querySelector('i');
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // Close sidebar when clicking on a link (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('section ul li a');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1024) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Close sidebar when window is resized to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 
     <script>
         function showAlert(message, type = 'success') {

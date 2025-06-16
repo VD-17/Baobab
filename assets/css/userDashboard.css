@@ -6,40 +6,10 @@
     display: grid;
     grid-template-columns: 250px 1fr 300px;
     grid-template-rows: auto 1fr;
-    grid-template-areas: 
-        "sidebar top-left right"
-        "sidebar bottom right";
     min-height: 100vh;
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
-}
-
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-    display: none;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1001;
-    background: #080357;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
 }
 
 /* Top Left Section */
@@ -326,7 +296,7 @@
 }
 
 .product-price {
-    color: #007bff;
+    color: #3C426F;
     font-weight: bold;
     margin: 0 0 5px 0;
     font-size: 14px;
@@ -367,24 +337,16 @@
 @media (max-width: 1200px) {
     #dashboard {
         grid-template-columns: 250px 1fr;
-        grid-template-areas: 
-            "sidebar top-left"
-            "sidebar bottom"
-            "sidebar right";
-        grid-template-rows: auto auto 1fr;
+        grid-template-rows: 1fr;
     }
     
     #right-section {
         grid-area: right;
-        grid-column: 2;
+        grid-column: 1;
     }
 }
 
 @media (max-width: 1024px) {
-    .mobile-menu-toggle {
-        display: block;
-    }
-    
     #dashboard {
         grid-template-columns: 1fr;
         grid-template-areas: 
@@ -393,39 +355,6 @@
             "right";
         padding: 60px 15px 15px 15px;
         gap: 15px;
-    }
-    
-    /* Sidebar becomes mobile overlay */
-    #sidebar {
-        position: fixed;
-        top: 0;
-        left: -300px;
-        width: 280px;
-        height: 100vh;
-        background: white;
-        z-index: 1000;
-        transition: left 0.3s ease;
-        overflow-y: auto;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    #sidebar.active {
-        left: 0;
-    }
-    
-    .sidebar-overlay.active {
-        display: block;
-    }
-    
-    /* Adjust sidebar content for mobile */
-    #sidebar ul {
-        flex-direction: column;
-        padding: 80px 20px 20px 20px;
-    }
-    
-    #sidebar li {
-        margin: 0 0 5px 0;
-        width: 100%;
     }
     
     #right-section {

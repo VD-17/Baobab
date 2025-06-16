@@ -143,6 +143,6 @@
         </div>
     </section>
 
-    <script src="assets/js/search.js"></script>
+    <script src="assets/js/indexSearch.js"></script>
 </body>
 </html>

@@ -1,20 +1,20 @@
 /* Sidenav Styling */
 .sidenav {
-    width: 200px; /* Smaller width for compact look */
+    width: 200px; 
     position: fixed;
-    top: 60px; /* Adjust based on header height */
-    bottom: 0; /* Extend to bottom of viewport */
-    background-color: #273043; /* Dark blue from footer */
+    top: 60px;
+    bottom: 0;
+    background-color: #273043;
     padding: 15px 0;
     overflow-y: auto;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow for floating effect */
-    border-radius: 0 8px 8px 0; /* Rounded right edges */
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 0 8px 8px 0;
     z-index: 1000;
 }
 
 .sidenav a {
     display: block;
-    color: #D6FFB7; /* Light green */
+    color: #D6FFB7;
     padding: 10px 15px;
     text-decoration: none;
     font-size: 1rem;
@@ -24,8 +24,8 @@
 
 .sidenav a:hover,
 .sidenav a.active {
-    background-color: #FF9F1C; /* Orange */
-    color: #fff; /* White text */
+    background-color: #FF9F1C;
+    color: #fff;
 }
 
 .sidenav a.active {
@@ -46,7 +46,7 @@
     .sidenav a {
         padding: 8px 15px;
         font-size: 0.9rem;
-        display: inline-block; /* Horizontal layout on mobile */
+        display: inline-block;
         margin-right: 10px;
     }
 }
