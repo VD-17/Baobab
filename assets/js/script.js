@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryItems = carousel.querySelectorAll('.cat');
         if (categoryItems.length === 0) return;
 
-        let scrollSpeed = 1;
+        let scrollSpeed = 0.5;
         let animationId;
-        let buffer = 160;
+        let buffer = 70;
 
         function animateScroll() {
             // If we've scrolled to the end, reset to start
