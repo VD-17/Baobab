@@ -3,7 +3,7 @@ session_start();
 require_once 'includes/db_connection.php';
 
 // Pagination settings
-$productsPerPage = 12;
+$productsPerPage = 20;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $productsPerPage;
 
