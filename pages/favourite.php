@@ -48,7 +48,6 @@
 ?> 
 <head>
     <link rel="stylesheet" href="../assets/css/favourite.css"> 
-    <link rel="stylesheet" href="../assets/css/shop.css"> 
 </head>
 <body>
     <?php include('../includes/header.php'); ?>

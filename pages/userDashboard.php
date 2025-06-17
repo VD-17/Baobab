@@ -141,47 +141,49 @@
     
     <?php include('../includes/sidebar.php'); ?>
 
-    <section id="top-left-section-box">
-        <div id="user">
-            <h3 class="username"><?php echo htmlspecialchars($userName); ?></h3>
-            <img src="<?php echo htmlspecialchars($profileImageSrc); ?>" alt="Profile Picture" class="profile-pic">
-        </div>
-        <div>
-            <h4>What are we doing today?</h4>
-        </div>
-        <div id="quickLinks">
-            <div class="links">
-                <p><a href="../pages/shop.php"><i class="bi bi-shop"></i>Explore products</a></p>
-                <p><a href="../pages/favourite.php"><i class="bi bi-bag-heart-fill"></i>View Favourites</a></p>
+    <div class="main-content">
+        <section id="top-left-section-box">
+            <div id="user">
+                <h3 class="username"><?php echo htmlspecialchars($userName); ?></h3>
+                <img src="<?php echo htmlspecialchars($profileImageSrc); ?>" alt="Profile Picture" class="profile-pic">
             </div>
-            <div class="links">
-                <p><a href="../pages/listing.php"><i class="fa-solid fa-pen-to-square"></i>List Products</a></p>
-                <p><a href="../pages/conversation.php"><i class="fa-solid fa-message"></i>View Messages</a></p>
-                <p><a href="../index.php"><i class="fa-solid fa-house"></i>Go to Home</a></p>
+            <div>
+                <h4>What are we doing today?</h4>
             </div>
-        </div>
-    </section>
+            <div id="quickLinks">
+                <div class="links">
+                    <p><a href="../pages/shop.php"><i class="bi bi-shop"></i>Explore products</a></p>
+                    <p><a href="../pages/favourite.php"><i class="bi bi-bag-heart-fill"></i>View Favourites</a></p>
+                </div>
+                <div class="links">
+                    <p><a href="../pages/listing.php"><i class="fa-solid fa-pen-to-square"></i>List Products</a></p>
+                    <p><a href="../pages/conversation.php"><i class="fa-solid fa-message"></i>View Messages</a></p>
+                    <p><a href="../index.php"><i class="fa-solid fa-house"></i>Go to Home</a></p>
+                </div>
+            </div>
+        </section>
 
-    <section id="bottom-section">
-        <div id="quickAccess">
-            <div class="box" onclick="window.location.href='../pages/editProfile.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-user-pen"></i>
-                <h5>Edit Profile</h5>
+        <section id="bottom-section">
+            <div id="quickAccess">
+                <div class="box" onclick="window.location.href='../pages/editProfile.php?userId=<?php echo $_SESSION['userId']; ?>'">
+                    <i class="fa-solid fa-user-pen"></i>
+                    <h5>Edit Profile</h5>
+                </div>
+                <div class="box" onclick="window.location.href='../pages/profile.php?userId=<?php echo $_SESSION['userId']; ?>'">
+                    <i class="fa-solid fa-user"></i>
+                    <h5>My Profile</h5>
+                </div>
+                <div class="box" onclick="window.location.href='../pages/edit_bank_details.php?userId=<?php echo $_SESSION['userId']; ?>'">
+                    <i class="fa-solid fa-money-check"></i>
+                    <h5>Add/Edit Payment Method</h5>
+                </div>
+                <div class="box" onclick="window.location.href='../pages/settings.php?userId=<?php echo $_SESSION['userId']; ?>'">
+                    <i class="fa-solid fa-gear"></i>
+                    <h5>Settings</h5>
+                </div>
             </div>
-            <div class="box" onclick="window.location.href='../pages/profile.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-user"></i>
-                <h5>My Profile</h5>
-            </div>
-            <div class="box" onclick="window.location.href='../pages/edit_bank_details.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-money-check"></i>
-                <h5>Add/Edit Payment Method</h5>
-            </div>
-            <div class="box" onclick="window.location.href='../pages/settings.php?userId=<?php echo $_SESSION['userId']; ?>'">
-                <i class="fa-solid fa-gear"></i>
-                <h5>Settings</h5>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <div id="right-section">
         <section id="notifications">

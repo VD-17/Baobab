@@ -1,18 +1,26 @@
 /* Main Layout */
 #dashboard2 {
-    margin: 0;
+    margin-left: 260px;
+    /* width: calc(100% - 260px);  */
     padding: 0;
     background-color: #f8f9fa;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 250px 1fr 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas: 
-        "top-section top-section"
-        "bottom-left bottom-right";
+        "sidebar top-section top-section"
+        "sidebar bottom-left bottom-right";
     min-height: 100vh;
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+    #dashboard2 {
+        margin-left: 0;
+        width: 100%;
+    }
 }
 
 /* Top Section - Statistics */
@@ -296,21 +304,28 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
     #dashboard2 {
-        grid-template-columns: 1fr;
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: auto auto auto;
         grid-template-areas: 
-            "top-section"
-            "bottom-left"
-            "bottom-right";
-    }
-    
-    #bottom-right-section {
-        grid-area: bottom-right;
-        grid-column: 1;
-        grid-row: 3;
+            "sidebar top-section"
+            "sidebar bottom-left"
+            "sidebar bottom-right";
     }
 }
 
 @media (max-width: 1024px) {
+    #dashboard2 {
+        margin-left: 0;
+        width: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: 
+            "sidebar"
+            "top-section"
+            "bottom-left"
+            "bottom-right";
+    }
+
     #quickAccess {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -327,7 +342,9 @@
 @media (max-width: 768px) {
     #dashboard2 {
         grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
         grid-template-areas: 
+            "sidebar"
             "top-section"
             "bottom-left"
             "bottom-right";

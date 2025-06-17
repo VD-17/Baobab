@@ -535,5 +535,6 @@ try {
         }
     </script>
     <script src="assets/js/shop.js"></script>
+    <script src="assets/js/accordion.js"></script>
 </body>
 </html>

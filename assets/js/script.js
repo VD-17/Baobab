@@ -86,36 +86,36 @@ document.addEventListener('DOMContentLoaded', () => {
         startReviewAutoScroll();
     }
 
-    // Section 6 accordion functionality
-    const accordions = document.querySelectorAll('#faq .accordion');
-    accordions.forEach((accordion, index) => {
-        // Add unique IDs for accessibility
-        const panel = accordion.nextElementSibling;
-        panel.id = `panel${index + 1}`;
-        accordion.setAttribute('aria-controls', `panel${index + 1}`);
-        accordion.setAttribute('aria-expanded', 'false');
+    // // Section 6 accordion functionality
+    // const accordions = document.querySelectorAll('#faq .accordion');
+    // accordions.forEach((accordion, index) => {
+    //     // Add unique IDs for accessibility
+    //     const panel = accordion.nextElementSibling;
+    //     panel.id = `panel${index + 1}`;
+    //     accordion.setAttribute('aria-controls', `panel${index + 1}`);
+    //     accordion.setAttribute('aria-expanded', 'false');
 
-        accordion.addEventListener('click', () => {
-            const isActive = accordion.classList.contains('active');
+    //     accordion.addEventListener('click', () => {
+    //         const isActive = accordion.classList.contains('active');
 
-            // Close all panels
-            accordions.forEach(acc => {
-                acc.classList.remove('active');
-                acc.setAttribute('aria-expanded', 'false');
-                const p = acc.nextElementSibling;
-                p.classList.remove('active');
-                p.style.maxHeight = null;
-            });
+    //         // Close all panels
+    //         accordions.forEach(acc => {
+    //             acc.classList.remove('active');
+    //             acc.setAttribute('aria-expanded', 'false');
+    //             const p = acc.nextElementSibling;
+    //             p.classList.remove('active');
+    //             p.style.maxHeight = null;
+    //         });
 
-            // Toggle current panel
-            if (!isActive) {
-                accordion.classList.add('active');
-                accordion.setAttribute('aria-expanded', 'true');
-                panel.classList.add('active');
-                panel.style.maxHeight = panel.scrollHeight + 'px';
-            }
-        });
-    });
+    //         // Toggle current panel
+    //         if (!isActive) {
+    //             accordion.classList.add('active');
+    //             accordion.setAttribute('aria-expanded', 'true');
+    //             panel.classList.add('active');
+    //             panel.style.maxHeight = panel.scrollHeight + 'px';
+    //         }
+    //     });
+    // });
 });
 
 // Optional: Add keyboard navigation

@@ -549,11 +549,11 @@
 
 #moreInfo h1 {
     font-size: clamp(2rem, 6vw, 4rem);
-    color: #ffffff;
+    color: #080357;
     font-weight: 800;
     line-height: 1.1;
     margin: 0;
-    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8);
+    /* text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8); */
 }
 
 #moreInfo h1 span {
@@ -597,21 +597,21 @@
 
 #moreInfo h5 {
     font-size: clamp(1rem, 3vw, 1.4rem);
-    color: #ffffff;
+    color: #3C426F;
     font-weight: 400;
     max-width: clamp(300px, 80vw, 600px);
     margin: 0;
     line-height: 1.6;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    /* text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); */
     padding: 0 10px;
 }
 
 #moreInfo h5 span {
     color: #FF9F1C;
     font-weight: 700;
-    text-shadow: 
+    /* text-shadow: 
         0 0 15px rgba(255, 159, 28, 0.6),
-        2px 2px 12px rgba(0, 0, 0, 0.9);
+        2px 2px 12px rgba(0, 0, 0, 0.9); */
     position: relative;
 }
 
@@ -1741,7 +1741,7 @@
 }
 
 #faq .panel.active {
-    max-height: 200px;
+    /* max-height: 200px;  */
     padding: 20px 25px;
 }
 
