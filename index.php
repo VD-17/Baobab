@@ -247,47 +247,6 @@ try {
         </div>
     </section>
 
-    <!-- <section id="section2">
-        <div class="heading">
-            <h3>TOP PRODUCTS</h3>
-            <h6>Check out popular products on Baobab</h6>
-        </div>
-        <div id="grid">
-            <div id="column1">
-                <div>
-                    <img src="uploads/product_pictures/img_Vidhi_Maisuria_6839a36f3911e_1748607855_5766_1.jpg" alt="">
-                </div>
-                <div>
-                    <img src="uploads/product_pictures/img_Ethan_Carter_6843385e314be_1749235806_5521_1.jpeg" alt="">
-                </div>
-                <div>
-                    <img src="uploads/product_pictures/img_Vidhi_Maisuriya_684345519afd8_1749239121_4656_1.jpeg" alt="">
-                </div>
-            </div>
-            <div id="column2">
-                <div>
-                    <img src="uploads/product_pictures/img_Vidhi_Maisuria_6839a48153e9b_1748608129_2547_1.jpg" alt="">
-                </div>
-                <div>
-                    <img src="uploads/product_pictures/img_Michael_Johnson_684337403746d_1749235520_1833_1.jpeg" alt="">
-                </div>
-                <div>
-                    <img src="uploads/product_pictures/img_Sophia_Martinez_68433a81de1e1_1749236353_9134_1.jpeg" alt="">
-                </div>
-            </div>
-            <div id="column3">
-                <div>
-                    <img src="uploads/product_pictures/img_Olivia_Thompson_68433cf9b51c8_1749236985_2952_1.jpeg" alt="">
-                </div>
-                <div>
-                    <img src="uploads/product_pictures/img_Vidhi_Maisuriya_68434220c27da_1749238304_7027_1.jpeg" alt="">
-                </div>
-                <div>
-                    <img src="uploads/product_pictures/img_Sophia_Martinez_684339d5861cc_1749236181_9457_1.jpeg" alt="">
-                </div>
-            </div>
-    </section> -->
-
     <section id="section2">
         <div class="heading">
             <h3>TOP PRODUCTS</h3>

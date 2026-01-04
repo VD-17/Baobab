@@ -111,7 +111,7 @@ error_log("PayFast ITN received: " . json_encode($pfData));
 // Get order_id from custom_str1 or m_payment_id
 $order_id = $pfData['custom_str1'] ?? $pfData['m_payment_id'] ?? null;
 $payment_status = $pfData['payment_status'] ?? '';
-$pf_payment_id = $pfData['pf_payment_id'] ?? '';
+$pf_payment_id = $pfData['pf_payment_id'] ?? ''; 
 
 if (!$order_id) {
     error_log("PayFast: No order ID found in notification");

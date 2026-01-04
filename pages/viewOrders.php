@@ -38,23 +38,18 @@ try {
     error_log("Profile header error: " . $e->getMessage());
 }
 
-// Pagination setup
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = 10;
-$offset = ($page - 1) * $limit;
-
 try {
     // Get total count of orders
     $countStmt = $conn->prepare("
-        SELECT COUNT(DISTINCT o.id) as total_orders
+        SELECT COUNT(*) as total_orders
         FROM orders o
         WHERE o.buyer_id = ?
     ");
     $countStmt->execute([$userId]);
-    $totalOrders = $countStmt->fetch(PDO::FETCH_ASSOC)['total_orders'];
-    $totalPages = ceil($totalOrders / $limit);
+    $totalOrdersResult = $countStmt->fetch(PDO::FETCH_ASSOC);
+    $totalOrders = $totalOrdersResult['total_orders'];
 
-    // Fetch all orders with items
+    // Fetch all orders for the user
     $stmtOrders = $conn->prepare("
         SELECT 
             o.id as order_id,
@@ -62,29 +57,38 @@ try {
             o.total_amount,
             o.payment_status,
             o.created_at as order_date,
-            seller.firstname as seller_firstname,
-            seller.lastname as seller_lastname,
-            seller.userId as seller_id,
-            GROUP_CONCAT(
-                CONCAT(p.productName, '|', oi.quantity, '|', oi.item_price, '|', p.productPicture)
-                SEPARATOR ';;'
-            ) as order_items
+            COALESCE(u.firstname, 'Unknown') as seller_firstname,
+            COALESCE(u.lastname, 'Seller') as seller_lastname,
+            o.seller_id as seller_id
         FROM orders o
-        JOIN order_items oi ON o.id = oi.order_id
-        JOIN products p ON p.id = oi.product_id
-        JOIN users seller ON seller.userId = o.seller_id
+        LEFT JOIN users u ON u.userId = o.seller_id
         WHERE o.buyer_id = ?
-        GROUP BY o.id
         ORDER BY o.created_at DESC
-        LIMIT ? OFFSET ?
     ");
-    $stmtOrders->execute([$userId, $limit, $offset]);
+    
+    $stmtOrders->execute([$userId]);
     $orders = $stmtOrders->fetchAll(PDO::FETCH_ASSOC);
+
+    // Fetch order items for each order
+    foreach ($orders as &$order) {
+        $itemStmt = $conn->prepare("
+            SELECT 
+                COALESCE(p.productName, 'Product Unavailable') as productName,
+                oi.quantity,
+                oi.item_price,
+                COALESCE(p.productPicture, 'assets/images/no-image.png') as productPicture
+            FROM order_items oi
+            LEFT JOIN products p ON p.id = oi.product_id
+            WHERE oi.order_id = ?
+        ");
+        $itemStmt->execute([$order['order_id']]);
+        $order['items'] = $itemStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 } catch (PDOException $e) {
     error_log("Orders fetch error: " . $e->getMessage());
     $orders = [];
-    $totalPages = 0;
+    $totalOrders = 0;
 }
 ?>
 
@@ -123,7 +127,7 @@ try {
         <div class="orders-container">
             <?php if (!empty($orders)): ?>
                 <div class="orders-summary">
-                    <p>Showing <?php echo count($orders); ?> of <?php echo $totalOrders; ?> orders</p>
+                    <p>Total Orders: <?php echo $totalOrders; ?></p>
                 </div>
 
                 <?php foreach ($orders as $order): ?>
@@ -143,40 +147,43 @@ try {
 
                         <div class="seller-info">
                             <p><strong>Seller:</strong> 
-                                <a href="../pages/profile.php?userId=<?php echo $order['seller_id']; ?>">
-                                    <?php echo htmlspecialchars($order['seller_firstname'] . ' ' . $order['seller_lastname']); ?>
-                                </a>
+                                <?php if ($order['seller_firstname'] !== 'Unknown'): ?>
+                                    <a href="../pages/profile.php?userId=<?php echo $order['seller_id']; ?>">
+                                        <?php echo htmlspecialchars($order['seller_firstname'] . ' ' . $order['seller_lastname']); ?>
+                                    </a>
+                                <?php else: ?>
+                                    <span>Unknown Seller (ID: <?php echo $order['seller_id']; ?>)</span>
+                                <?php endif; ?>
                             </p>
                         </div>
 
                         <div class="order-items">
-                            <?php 
-                            $items = explode(';;', $order['order_items']);
-                            foreach ($items as $item): 
-                                $itemData = explode('|', $item);
-                                if (count($itemData) >= 4):
-                            ?>
-                                <div class="order-item">
-                                    <div class="item-image">
-                                        <img src="../<?php echo htmlspecialchars($itemData[3]); ?>" 
-                                             alt="<?php echo htmlspecialchars($itemData[0]); ?>">
+                            <?php if (!empty($order['items'])): ?>
+                                <?php foreach ($order['items'] as $item): ?>
+                                    <div class="order-item">
+                                        <!-- <div class="item-image">
+                                            <img src="../<?php echo htmlspecialchars($item['productPicture']); ?>" 
+                                                 alt="<?php echo htmlspecialchars($item['productName']); ?>"
+                                                 onerror="this.src='../assets/images/no-image.png'">
+                                        </div> -->
+                                        <div class="item-details">
+                                            <h4><?php echo htmlspecialchars($item['productName']); ?></h4>
+                                            <p>Quantity: <?php echo (int)$item['quantity']; ?></p>
+                                            <p class="item-price">R<?php echo number_format($item['item_price'], 2); ?> each</p>
+                                        </div>
                                     </div>
-                                    <div class="item-details">
-                                        <h4><?php echo htmlspecialchars($itemData[0]); ?></h4>
-                                        <p>Quantity: <?php echo $itemData[1]; ?></p>
-                                        <p class="item-price">R<?php echo number_format($itemData[2], 2); ?> each</p>
-                                    </div>
-                                </div>
-                            <?php 
-                                endif;
-                            endforeach; 
-                            ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No items found for this order.</p>
+                            <?php endif; ?>
                         </div>
 
                         <div class="order-actions">
-                            <button class="btn-secondary" onclick="contactSeller(<?php echo $order['seller_id']; ?>)">
-                                Contact Seller
-                            </button>
+                            <?php if ($order['seller_firstname'] !== 'Unknown'): ?>
+                                <button class="btn-secondary" onclick="contactSeller(<?php echo $order['seller_id']; ?>)">
+                                    Contact Seller
+                                </button>
+                            <?php endif; ?>
                             <?php if ($order['payment_status'] === 'paid'): ?>
                                 <button class="btn-primary" onclick="leaveReview(<?php echo $order['order_id']; ?>)">
                                     Leave Review
@@ -185,26 +192,6 @@ try {
                         </div>
                     </div>
                 <?php endforeach; ?>
-
-                <!-- Pagination -->
-                <?php if ($totalPages > 1): ?>
-                    <div class="pagination">
-                        <?php if ($page > 1): ?>
-                            <a href="?page=<?php echo $page - 1; ?>" class="page-btn">← Previous</a>
-                        <?php endif; ?>
-
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <a href="?page=<?php echo $i; ?>" 
-                               class="page-btn <?php echo $i === $page ? 'active' : ''; ?>">
-                                <?php echo $i; ?>
-                            </a>
-                        <?php endfor; ?>
-
-                        <?php if ($page < $totalPages): ?>
-                            <a href="?page=<?php echo $page + 1; ?>" class="page-btn">Next →</a>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
 
             <?php else: ?>
                 <div class="no-orders">

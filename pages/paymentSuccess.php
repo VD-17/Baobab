@@ -88,7 +88,7 @@ if (isset($_SESSION['userId'])) {
         </div>
         
         <a href="../index.php" class="btn">Return to Home</a>
-        <a href="../pages/myOrders.php" class="btn">View My Orders</a>
+        <a href="../pages/viewOrders.php" class="btn">View My Orders</a>
     </div>
 </body>
 </html>
